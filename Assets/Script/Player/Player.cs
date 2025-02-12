@@ -5,15 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D rb;
+    public WeaponBase weapon;
 
     public float moveSpeed;
-
-    public GameObject bulletPrefab;
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -23,7 +17,8 @@ public class Player : MonoBehaviour
 
     public void PlayerMove()
     {
-        Vector2 move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        //Player move
+        Vector2 move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         if (transform.localPosition.x <= -8)
         {
@@ -33,11 +28,12 @@ public class Player : MonoBehaviour
         {
             move.x = Mathf.Min(0, move.x);
         }
-        else if (transform.localPosition.y <= -5)
+
+        if (transform.localPosition.y <= -4.5)
         {
             move.y = Mathf.Max(0, move.y);
         }
-        else if (transform.localPosition.y >= 5)
+        else if (transform.localPosition.y >= 4.5)
         {
             move.y = Mathf.Min(0, move.y);
         }
@@ -47,10 +43,10 @@ public class Player : MonoBehaviour
 
     public void BulletShoot()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        //Bullet shoot
+        if (Input.GetKey(KeyCode.Space))
         {
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            Destroy(bullet, 2f);
+            weapon.BulletShoot();
         }
     }
 }

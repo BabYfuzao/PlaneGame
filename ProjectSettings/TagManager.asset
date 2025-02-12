@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BulletRemover
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -46,4 +48,7 @@ TagManager:
     locked: 0
   - name: GameObject
     uniqueID: 1361331379
+    locked: 0
+  - name: VFX
+    uniqueID: 408641575
     locked: 0
