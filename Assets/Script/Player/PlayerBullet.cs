@@ -13,7 +13,7 @@ public class PlayerBullet : MonoBehaviour
     private void Start()
     {
         Vector2 direction = Vector2.right;
-        rb.velocity = direction * 15f;
+        rb.velocity = direction * 5f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
