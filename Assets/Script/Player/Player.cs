@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
         //Bullet shoot
         if (Input.GetKey(KeyCode.Space))
         {
-            weapon.BulletShoot();
+            StartCoroutine(weapon.BulletShoot());
         }
     }
 }

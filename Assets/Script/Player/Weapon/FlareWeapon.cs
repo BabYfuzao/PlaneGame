@@ -2,13 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponBase : MonoBehaviour
+public class FlareWeapon : WeaponBase
 {
-    public float shootCD;
-    protected bool canShoot = false;
-    public GameObject bulletPrefab;
-
-    public virtual IEnumerator BulletShoot()
+    public override IEnumerator BulletShoot()
     {
         if (!canShoot)
         {
