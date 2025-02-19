@@ -12,7 +12,7 @@ public class WeaponBase : MonoBehaviour
     {
         if (!canShoot)
         {
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            GameObject bulletObj = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             canShoot = true;
             yield return new WaitForSeconds(shootCD);
             canShoot = false;

@@ -1,22 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-public class Enemy : MonoBehaviour
+public class Enemy : EnemyBase
 {
-    public int hP;
-
-    public void TakeDamage(int damage)
+    protected override void Start()
     {
-        hP -= damage;
-        CheckDead();
+        base.Start();
     }
 
-    public void CheckDead()
+    protected override void CreateMovement()
     {
-        if (hP <= 0)
+        base.CreateMovement();
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "EnemyRemover")
         {
             Destroy(gameObject);
         }
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+    }
+
+    protected override void CheckDead()
+    {
+        base.CheckDead();
     }
 }

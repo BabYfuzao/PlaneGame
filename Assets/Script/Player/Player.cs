@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     public WeaponBase weapon;
 
+    public int hP;
     public float moveSpeed;
 
     void Update()
@@ -47,6 +48,20 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             StartCoroutine(weapon.BulletShoot());
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        hP -= damage;
+        CheckDead();
+    }
+
+    public void CheckDead()
+    {
+        if (hP <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

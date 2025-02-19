@@ -19,14 +19,14 @@ public class PlayerBulletBase : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("BulletRemover"))
+        if (collision.gameObject.name == "BulletRemover")
         {
             Destroy(gameObject);
         }
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(atk);
+            collision.gameObject.GetComponent<EnemyBase>().TakeDamage(atk);
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

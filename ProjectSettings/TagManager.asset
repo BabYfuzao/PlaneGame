@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - BulletRemover
   - Enemy
+  - Remover
+  - EnemyLevel
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,9 @@ public class CameraMove : MonoBehaviour
 
     void Update()
     {
-        transform.position += new Vector3(camMoveSpeed * Time.deltaTime, 0, 0);
+        if (!EnemySpawner.instance.isBossSpawn)
+        {
+            transform.position += new Vector3(camMoveSpeed * Time.deltaTime, 0, 0);
+        }
     }
 }
