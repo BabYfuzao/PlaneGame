@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DigitalBullet : PlayerBulletBase
 {
-    public int hitCount;
+    public GameObject explosionPrefab;
 
     protected override void Start()
     {
@@ -25,9 +25,21 @@ public class DigitalBullet : PlayerBulletBase
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyBase>().TakeDamage(atk);
+            EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+            enemy.TakeDamage(atk);
+            enemy.dBHitCount++;
+            CheckEnemyHitCount(enemy);
+
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
+        }
+    }
+
+    public void CheckEnemyHitCount(EnemyBase enemy)
+    {
+        if (enemy.dBHitCount >= 10)
+        {
+            GameObject explosionObj = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         }
     }
 }

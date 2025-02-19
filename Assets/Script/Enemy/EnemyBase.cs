@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class EnemyBase : MonoBehaviour
 {
     public int hP;
     public float moveDistance;
+
+    public TextMeshProUGUI dBHitCountText;
+    public int dBHitCount;
     protected Vector3 originalPos;
 
     protected virtual void Start()
@@ -14,6 +18,11 @@ public class EnemyBase : MonoBehaviour
         originalPos = transform.localPosition;
 
         CreateMovement();
+    }
+
+    public virtual void TextHandle()
+    {
+        dBHitCountText.text = dBHitCount.ToString();
     }
 
     protected virtual void CreateMovement()

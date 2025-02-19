@@ -14,6 +14,11 @@ public class Boss : EnemyBase
         base.Start();
     }
 
+    public override void TextHandle()
+    {
+        dBHitCountText.text = dBHitCount.ToString();
+    }
+
     protected override void CreateMovement()
     {
         var sequence = DOTween.Sequence();
