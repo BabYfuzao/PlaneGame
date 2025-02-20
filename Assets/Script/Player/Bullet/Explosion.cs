@@ -2,21 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DigitalBullet : PlayerBulletBase
+public class Explosion : MonoBehaviour
 {
     public GameObject explosionPrefab;
+    public GameObject enemyHitVFXPrefab;
+    public int atk;
 
-    protected override void Start()
-    {
-        base.Start();
-    }
-
-    void Update()
-    {
-        transform.Rotate(Vector3.forward, 1000f * Time.deltaTime);
-    }
-
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "BulletRemover")
         {
@@ -29,18 +21,18 @@ public class DigitalBullet : PlayerBulletBase
             enemy.TakeDamage(atk);
             //enemy.dBHitCountText.gameObject.SetActive(true);
             enemy.dBHitCount++;
-            CheckEnemyHitCount(enemy, collision.gameObject);
+            CheckEnemyHitCount(enemy);
 
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            Destroy(gameObject, 0.5f);
         }
     }
 
-    public virtual void CheckEnemyHitCount(EnemyBase enemy, GameObject enemyObj)
+    public void CheckEnemyHitCount(EnemyBase enemy)
     {
-        if (enemy.dBHitCount >= 3)
+        if (enemy.dBHitCount >= 10)
         {
-            GameObject explosionObj = Instantiate(explosionPrefab, enemyObj.transform.position, Quaternion.identity);
+            GameObject explosionObj = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             enemy.dBHitCount = 0;
         }
     }
