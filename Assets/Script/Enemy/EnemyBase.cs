@@ -7,17 +7,36 @@ using TMPro;
 public class EnemyBase : MonoBehaviour
 {
     public int hP;
+    protected HPBar hPBar;
+
     public float moveDistance;
 
-    public TextMeshProUGUI dBHitCountText;
+    public TextMeshPro dBHitCountText;
     public int dBHitCount;
     protected Vector3 originalPos;
 
     protected virtual void Start()
     {
+        hPBar = GetComponentInChildren<HPBar>();
+        hPBar.maxHP = hP;
+        hPBar.currentHP = hPBar.maxHP;
+        hPBar.UpdateHPBar();
+
         originalPos = transform.localPosition;
 
         CreateMovement();
+    }
+
+    public virtual void HitCountUpdate(int hitCount)
+    {
+        dBHitCount += hitCount;
+
+        if (dBHitCount <= 0)
+        {
+            dBHitCountText.gameObject.SetActive(false);
+        }
+
+        TextHandle();
     }
 
     public virtual void TextHandle()
@@ -41,6 +60,7 @@ public class EnemyBase : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         hP -= damage;
+        hPBar.SetHPBar(-damage);
         CheckDead();
     }
 

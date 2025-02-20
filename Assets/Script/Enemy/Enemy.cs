@@ -10,9 +10,9 @@ public class Enemy : EnemyBase
         base.Start();
     }
 
-    public override void TextHandle()
+    public override void HitCountUpdate(int hitCount)
     {
-        dBHitCountText.text = dBHitCount.ToString();
+        base.HitCountUpdate(hitCount);
     }
 
     protected override void CreateMovement()

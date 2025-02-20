@@ -27,8 +27,8 @@ public class DigitalBullet : PlayerBulletBase
         {
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
             enemy.TakeDamage(atk);
-            //enemy.dBHitCountText.gameObject.SetActive(true);
-            enemy.dBHitCount++;
+            enemy.dBHitCountText.gameObject.SetActive(true);
+            enemy.HitCountUpdate(1);
             CheckEnemyHitCount(enemy, collision.gameObject);
 
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
@@ -38,10 +38,13 @@ public class DigitalBullet : PlayerBulletBase
 
     public virtual void CheckEnemyHitCount(EnemyBase enemy, GameObject enemyObj)
     {
-        if (enemy.dBHitCount >= 3)
+        int hitCountMax = 8;
+
+        if (enemy.dBHitCount >= hitCountMax)
         {
-            GameObject explosionObj = Instantiate(explosionPrefab, enemyObj.transform.position, Quaternion.identity);
-            enemy.dBHitCount = 0;
+            GameObject explosionObj = Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
+            explosionObj.GetComponent<Explosion>().StartExplosion();
+            enemy.HitCountUpdate(-hitCountMax);
         }
     }
 }
