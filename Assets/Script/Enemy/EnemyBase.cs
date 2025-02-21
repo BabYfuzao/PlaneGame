@@ -11,7 +11,9 @@ public class EnemyBase : MonoBehaviour
     public int hP;
     protected HPBar hPBar;
 
-    public float moveDistance;
+    public float enterDistance;
+
+    public bool canMove;
 
     public TextMeshPro dBHitCountText;
     public int dBHitCount;
@@ -48,7 +50,7 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void CreateMovement()
     {
-        transform.DOLocalMoveX(originalPos.x - moveDistance, 1f);
+        transform.DOLocalMoveX(originalPos.x - enterDistance, 1f);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)

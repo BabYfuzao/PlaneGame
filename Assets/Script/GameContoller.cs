@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class GameContoller : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static GameContoller instance;
 
-    // Update is called once per frame
-    void Update()
+    public bool isBlackHoleSpawn;
+
+    private void Awake()
     {
-        
+        instance = this;
     }
 }

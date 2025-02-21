@@ -13,7 +13,7 @@ namespace PathCreation.Examples
         public float speed = 5;
         float distanceTravelled;
 
-        public bool move;
+        public bool canMove;
         public float delay;
 
         void Start() {
@@ -28,13 +28,13 @@ namespace PathCreation.Examples
             {
                 // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
                 pathCreator.pathUpdated += OnPathChanged;
-                move = true;
+                canMove = true;
             }
         }
 
         void Update()
         {
-            if (pathCreator != null && move)
+            if (pathCreator != null && canMove)
             {
                 distanceTravelled += speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);

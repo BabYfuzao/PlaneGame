@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -6,6 +6,11 @@ using DG.Tweening;
 public class BlackHole : MonoBehaviour
 {
     public SpriteRenderer sr;
+
+    public float attractionRange;
+    public float attractionSpeed;
+
+    private List<EnemyBase> attractedEnemies = new List<EnemyBase>();
 
     public void BlackHoleDuration(float durationTime)
     {
@@ -34,6 +39,7 @@ public class BlackHole : MonoBehaviour
 
         fadeOutSequence.OnComplete(() =>
         {
+            GameContoller.instance.isBlackHoleSpawn = false;
             Destroy(gameObject);
         });
     }
@@ -41,5 +47,31 @@ public class BlackHole : MonoBehaviour
     void Update()
     {
         transform.Rotate(Vector3.forward, 100f * Time.deltaTime);
+        AttractEnemies();
+    }
+
+    private void AttractEnemies()
+    {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, attractionRange);
+        Debug.Log($"Detected {enemies.Length} colliders.");
+
+        foreach (var collider in enemies)
+        {
+            Debug.Log("1");
+            if (collider.CompareTag("Enemy"))
+            {
+                EnemyBase enemy = collider.GetComponent<EnemyBase>();
+                attractedEnemies.Add(enemy);
+                Vector2 direction = (transform.position - enemy.transform.position).normalized;
+                Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
+                rb.MovePosition(rb.position + direction * attractionSpeed * Time.deltaTime);
+            }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attractionRange);
     }
 }

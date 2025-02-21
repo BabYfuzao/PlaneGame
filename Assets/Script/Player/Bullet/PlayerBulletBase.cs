@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,8 @@ public class PlayerBulletBase : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyBase>().TakeDamage(atk);
+            EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+            enemy.TakeDamage(atk);
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

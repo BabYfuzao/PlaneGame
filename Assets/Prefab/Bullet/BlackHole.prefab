@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 3435087129563436148}
   - component: {fileID: 3783970586873464066}
   - component: {fileID: -6119047095046579521}
-  - component: {fileID: -3316414218635001716}
-  - component: {fileID: -4290978273658354634}
   m_Layer: 0
   m_Name: BlackHole
   m_TagString: Untagged
@@ -100,39 +98,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 3783970586873464066}
---- !u!58 &-3316414218635001716
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4529783081265197209}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 1
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2.6075
---- !u!250 &-4290978273658354634
-PointEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4529783081265197209}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceMagnitude: -10
-  m_ForceVariation: 0
-  m_DistanceScale: 1
-  m_ForceSource: 0
-  m_ForceTarget: 0
-  m_ForceMode: 0
-  m_Drag: 1
-  m_AngularDrag: 0
+  attractionRange: 2.3
+  attractionSpeed: 10

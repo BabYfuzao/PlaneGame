@@ -10,7 +10,7 @@ public class Explosion : MonoBehaviour
     public GameObject explosionPrefab;
     public GameObject enemyHitVFXPrefab;
     public int atk;
-    public bool canHit;
+    private HashSet<EnemyBase> damagedEnemies = new HashSet<EnemyBase>();
 
     public void StartExplosion()
     {
@@ -50,16 +50,21 @@ public class Explosion : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.CompareTag("Enemy") && canHit)
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
-            enemy.TakeDamage(atk);
-            enemy.dBHitCountText.gameObject.SetActive(true);
-            enemy.HitCountUpdate(1);
-            CheckEnemyHitCount(enemy);
-            canHit = false;
 
-            GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
+            if (!damagedEnemies.Contains(enemy))
+            {
+                enemy.TakeDamage(atk);
+                enemy.dBHitCountText.gameObject.SetActive(true);
+                enemy.HitCountUpdate(1);
+                damagedEnemies.Add(enemy);
+
+                GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
+
+                CheckEnemyHitCount(enemy);
+            }
         }
     }
 

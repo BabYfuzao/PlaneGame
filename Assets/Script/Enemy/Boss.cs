@@ -23,14 +23,14 @@ public class Boss : EnemyBase
     {
         var sequence = DOTween.Sequence();
 
-        transform.DOLocalMoveX(originalPos.x - moveDistance, 1f).OnComplete(() =>
+        transform.DOLocalMoveX(originalPos.x - enterDistance, 1f).OnComplete(() =>
         {
             StartCoroutine(BulletShoot());
         });
 
-        sequence.Append(transform.DOLocalMoveY(originalPos.y + 3, 1f))
+        /*sequence.Append(transform.DOLocalMoveY(originalPos.y + 3, 1f))
                 .Append(transform.DOLocalMoveY(originalPos.y - 3, 1f))
-                .SetLoops(-1, LoopType.Yoyo);
+                .SetLoops(-1, LoopType.Yoyo);*/
     }
 
     public IEnumerator BulletShoot()

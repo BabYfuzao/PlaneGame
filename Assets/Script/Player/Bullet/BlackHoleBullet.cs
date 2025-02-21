@@ -1,11 +1,16 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
+using Random = UnityEngine.Random;
 
 public class BlackHoleBullet : PlayerBulletBase
 {
     public GameObject blackHolePrefab;
     public float blackHoleDurationTime;
+    public float probability;
+    private HashSet<EnemyBase> damagedEnemies = new HashSet<EnemyBase>();
 
     protected override void Start()
     {
@@ -21,11 +26,28 @@ public class BlackHoleBullet : PlayerBulletBase
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyBase>().TakeDamage(atk);
-            GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
-            GameObject blackHole = Instantiate(blackHolePrefab, transform.position, Quaternion.identity);
-            blackHole.GetComponent<BlackHole>().BlackHoleDuration(blackHoleDurationTime);
-            Destroy(gameObject);
+            EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+
+            if (!damagedEnemies.Contains(enemy))
+            {
+                enemy.TakeDamage(atk);
+                damagedEnemies.Add(enemy);
+                GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
+
+                BlackHoleInstantiate();
+            }
+        }
+    }
+
+    public void BlackHoleInstantiate()
+    {
+        float randomValue = Random.Range(0f, 1f);
+
+        if (randomValue <= probability && !GameContoller.instance.isBlackHoleSpawn)
+        {
+            GameObject blackHoleObj = Instantiate(blackHolePrefab, transform.position, Quaternion.identity);
+            blackHoleObj.GetComponent<BlackHole>().BlackHoleDuration(blackHoleDurationTime);
+            GameContoller.instance.isBlackHoleSpawn = true;
         }
     }
 }
