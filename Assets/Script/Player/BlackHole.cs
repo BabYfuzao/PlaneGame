@@ -14,7 +14,7 @@ public class BlackHole : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
 
-        sequence.Join(sr.DOFade(1, 1f));
+        sequence.Join(sr.DOFade(1f, 1f));
         sequence.Join(transform.DOScale(Vector3.one, 1f));
 
         sequence.OnComplete(() =>
@@ -29,7 +29,7 @@ public class BlackHole : MonoBehaviour
 
         Sequence fadeOutSequence = DOTween.Sequence();
 
-        fadeOutSequence.Join(sr.DOFade(0, 1f));
+        fadeOutSequence.Join(sr.DOFade(0f, 1f));
         fadeOutSequence.Join(transform.DOScale(Vector3.zero, 1f));
 
         fadeOutSequence.OnComplete(() =>

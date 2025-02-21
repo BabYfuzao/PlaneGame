@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7279dc65fe0f93e43a7fbdfaa14482b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sr: {fileID: 2945781760964640493}
   hP: 30
   moveDistance: 4
   dBHitCountText: {fileID: 2144822252709463846}

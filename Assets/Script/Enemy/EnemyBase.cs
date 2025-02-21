@@ -6,6 +6,8 @@ using TMPro;
 
 public class EnemyBase : MonoBehaviour
 {
+    public SpriteRenderer sr;
+
     public int hP;
     protected HPBar hPBar;
 
@@ -62,6 +64,14 @@ public class EnemyBase : MonoBehaviour
         hP -= damage;
         hPBar.SetHPBar(-damage);
         CheckDead();
+        StartCoroutine(HitEffect());
+    }
+
+    public virtual IEnumerator HitEffect()
+    {
+        sr.color = Color.gray;
+        yield return new WaitForSeconds(0.2f);
+        sr.color = Color.white;
     }
 
     protected virtual void CheckDead()

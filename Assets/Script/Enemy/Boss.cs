@@ -55,6 +55,11 @@ public class Boss : EnemyBase
         base.TakeDamage(damage);
     }
 
+    public override IEnumerator HitEffect()
+    {
+        yield return base.HitEffect();
+    }
+
     protected override void CheckDead()
     {
         base.CheckDead();
