@@ -269,7 +269,7 @@ MonoBehaviour:
   sr: {fileID: 0}
   hP: 10
   enterDistance: 0
-  canMove: 0
+  enterDelay: 0
   dBHitCountText: {fileID: 0}
   dBHitCount: 0
 --- !u!212 &91417681
@@ -401,7 +401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &302166426
 RectTransform:
   m_ObjectHideFlags: 0
@@ -842,8 +842,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 452610035}
   hP: 100
-  enterDistance: 0
-  canMove: 0
+  enterDistance: 7
+  enterDelay: 0
   dBHitCountText: {fileID: 302166428}
   dBHitCount: 0
   enemyBulletPrefab: {fileID: 8379671759590681127, guid: 03e3175e1ed44a746871e4a998f919fe, type: 3}
@@ -1118,7 +1118,6 @@ MonoBehaviour:
   endOfPathInstruction: 1
   speed: 5
   canMove: 0
-  delay: 0
 --- !u!1 &470452320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,7 +1133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &470452321
 Transform:
   m_ObjectHideFlags: 0
@@ -1582,7 +1581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2945781760964640482, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2945781760964640482, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
       propertyPath: pathCreator
@@ -1644,6 +1643,14 @@ PrefabInstance:
       propertyPath: hP
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 2945781760964640494, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
+      propertyPath: enterDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2945781760964640494, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
+      propertyPath: enterDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3081505653264385635, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1670,7 +1677,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &863433884
 Transform:
   m_ObjectHideFlags: 0
@@ -2117,7 +2124,7 @@ MonoBehaviour:
   sr: {fileID: 0}
   hP: 10
   enterDistance: 0
-  canMove: 0
+  enterDelay: 0
   dBHitCountText: {fileID: 0}
   dBHitCount: 0
 --- !u!212 &1090822094
@@ -2337,7 +2344,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2945781760964640482, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2945781760964640482, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
       propertyPath: pathCreator
@@ -2393,6 +2400,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2945781760964640492, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2945781760964640494, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
+      propertyPath: enterDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3081505653264385635, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2489,7 +2504,7 @@ MonoBehaviour:
   sr: {fileID: 0}
   hP: 10
   enterDistance: 0
-  canMove: 0
+  enterDelay: 0
   dBHitCountText: {fileID: 0}
   dBHitCount: 0
 --- !u!212 &1558473279
@@ -2557,7 +2572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2945781760964640482, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2945781760964640482, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
       propertyPath: pathCreator
@@ -2618,6 +2633,14 @@ PrefabInstance:
     - target: {fileID: 2945781760964640494, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
       propertyPath: hP
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2945781760964640494, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
+      propertyPath: enterDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2945781760964640494, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
+      propertyPath: enterDistance
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3081505653264385635, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
       propertyPath: m_IsActive
@@ -3242,7 +3265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101581088}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

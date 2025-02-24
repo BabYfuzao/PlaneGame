@@ -22,10 +22,12 @@ public class Enemy : EnemyBase
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "EnemyRemover")
-        {
-            Destroy(gameObject);
-        }
+        base.OnTriggerEnter2D(collision);
+    }
+
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {
+        base.OnTriggerExit2D(collision);
     }
 
     public override void TakeDamage(int damage)

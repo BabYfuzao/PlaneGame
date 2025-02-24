@@ -21,10 +21,11 @@ public class Boss : EnemyBase
 
     protected override void CreateMovement()
     {
-        var sequence = DOTween.Sequence();
+        //var sequence = DOTween.Sequence();
 
         transform.DOLocalMoveX(originalPos.x - enterDistance, 1f).OnComplete(() =>
         {
+            StartCoroutine(pathFollower.StartFollow(enterDelay));
             StartCoroutine(BulletShoot());
         });
 
@@ -44,10 +45,12 @@ public class Boss : EnemyBase
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "EnemyRemover")
-        {
-            Destroy(gameObject);
-        }
+        base.OnTriggerEnter2D(collision);
+    }
+
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {
+        base.OnTriggerExit2D(collision);
     }
 
     public override void TakeDamage(int damage)

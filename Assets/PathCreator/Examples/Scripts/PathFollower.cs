@@ -13,14 +13,9 @@ namespace PathCreation.Examples
         public float speed = 5;
         float distanceTravelled;
 
-        public bool canMove;
-        public float delay;
+        public bool canMove = false;
 
-        void Start() {
-            StartCoroutine(StartFollow());
-        }
-
-        IEnumerator StartFollow()
+        public IEnumerator StartFollow(float delay)
         {
             yield return new WaitForSeconds(delay);
 

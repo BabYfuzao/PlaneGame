@@ -53,11 +53,9 @@ public class BlackHole : MonoBehaviour
     private void AttractEnemies()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, attractionRange);
-        Debug.Log($"Detected {enemies.Length} colliders.");
 
         foreach (var collider in enemies)
         {
-            Debug.Log("1");
             if (collider.CompareTag("Enemy"))
             {
                 EnemyBase enemy = collider.GetComponent<EnemyBase>();

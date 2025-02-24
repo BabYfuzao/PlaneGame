@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8932798994328061045}
   - component: {fileID: 6284981645692812013}
   - component: {fileID: 3280115490727932353}
-  - component: {fileID: 7304361504114547074}
   - component: {fileID: 8986617895108104498}
+  - component: {fileID: 1144788311280448074}
   m_Layer: 0
   m_Name: DigitalBullet
   m_TagString: Untagged
@@ -104,22 +104,6 @@ MonoBehaviour:
   moveSpeed: 20
   enemyHitVFXPrefab: {fileID: 646013156821495006, guid: 73fb937958abe854a83271d887867a6e, type: 3}
   explosionPrefab: {fileID: 5555698192914516244, guid: 2a65b77f9d511f14cae6578581cb9b01, type: 3}
---- !u!58 &7304361504114547074
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6633309600070252380}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.36475
 --- !u!50 &8986617895108104498
 Rigidbody2D:
   serializedVersion: 4
@@ -141,3 +125,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!70 &1144788311280448074
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6633309600070252380}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 0.15}
+  m_Direction: 1

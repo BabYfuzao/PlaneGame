@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using PathCreation.Examples;
 
 public class EnemyBase : MonoBehaviour
 {
     public SpriteRenderer sr;
 
+    protected PathFollower pathFollower;
+
     public int hP;
     protected HPBar hPBar;
 
     public float enterDistance;
-
-    public bool canMove;
+    public float enterDelay;
 
     public TextMeshPro dBHitCountText;
     public int dBHitCount;
@@ -22,6 +24,8 @@ public class EnemyBase : MonoBehaviour
     protected virtual void Start()
     {
         hPBar = GetComponentInChildren<HPBar>();
+        pathFollower = GetComponentInChildren<PathFollower>();
+
         hPBar.maxHP = hP;
         hPBar.currentHP = hPBar.maxHP;
         hPBar.UpdateHPBar();
@@ -50,14 +54,31 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void CreateMovement()
     {
-        transform.DOLocalMoveX(originalPos.x - enterDistance, 1f);
+        transform.DOLocalMoveX(originalPos.x - enterDistance, 1f).OnComplete(() =>
+        {
+            StartCoroutine(pathFollower.StartFollow(enterDelay));
+        });
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "EnemyRemover")
         {
+            Debug.Log("1");
             Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("BlackHole"))
+        {
+            Debug.Log("bh");
+            pathFollower.canMove = false;
+        }
+    }
+
+    protected virtual void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "BlackHole")
+        {
+            pathFollower.canMove = true;
         }
     }
 

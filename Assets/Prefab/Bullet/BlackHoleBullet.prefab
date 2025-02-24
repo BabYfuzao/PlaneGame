@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8331725726947260529}
   - component: {fileID: 5046695509876744531}
   - component: {fileID: 2693663029338603053}
-  - component: {fileID: 204527702}
   - component: {fileID: -5975131675582844644}
+  - component: {fileID: 3863266514418233215}
   m_Layer: 0
   m_Name: BlackHoleBullet
   m_TagString: Untagged
@@ -217,22 +217,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!58 &204527702
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5209546865113144775}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.1, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1
 --- !u!114 &-5975131675582844644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,3 +236,19 @@ MonoBehaviour:
   blackHolePrefab: {fileID: 4529783081265197209, guid: 7c1e686a2e53bf14b81a8b154a0ce9fa, type: 3}
   blackHoleDurationTime: 2
   probability: 1
+--- !u!70 &3863266514418233215
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5209546865113144775}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.6, y: 0.2}
+  m_Direction: 1
