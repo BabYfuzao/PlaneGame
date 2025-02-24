@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class Enemy : EnemyBase
 {
@@ -10,14 +11,14 @@ public class Enemy : EnemyBase
         base.Start();
     }
 
+    public override void StartMove()
+    {
+        base.StartMove();
+    }
+
     public override void HitCountUpdate(int hitCount)
     {
         base.HitCountUpdate(hitCount);
-    }
-
-    protected override void CreateMovement()
-    {
-        base.CreateMovement();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,18 +26,6 @@ public class Enemy : EnemyBase
         if (collision.gameObject.name == "EnemyRemover")
         {
             Destroy(gameObject);
-        }
-        else if (collision.gameObject.CompareTag("BlackHole"))
-        {
-            pathFollower.canMove = false;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "BlackHole")
-        {
-            pathFollower.canMove = true;
         }
     }
 

@@ -24,18 +24,23 @@ public class BlackHole : MonoBehaviour
         if (collider.CompareTag("Enemy"))
         {
             EnemyBase enemy = collider.GetComponent<EnemyBase>();
-            if (!attractedEnemies.Contains(enemy))
+
+            if (!enemy.isBoss)
             {
-                attractedEnemies.Add(enemy);
-                originalPositions.Add(enemy.transform.position);
-                enemy.OnDeath += HandleEnemyDeath;
+                if (!attractedEnemies.Contains(enemy))
+                {
+                    enemy.pathFollower.canMove = false;
+                    attractedEnemies.Add(enemy);
+                    originalPositions.Add(enemy.transform.position);
+                    enemy.OnDeath += HandleEnemyDeath;
+                }
+
+                float randomX = Random.Range(-0.5f, 0.5f);
+                float randomY = Random.Range(-0.5f, 0.5f);
+
+                Vector2 targetPosition = (Vector2)transform.position + new Vector2(randomX, randomY);
+                enemy.transform.DOMove(targetPosition, 2f).SetEase(Ease.OutCubic);
             }
-
-            float randomX = Random.Range(-0.5f, 0.5f);
-            float randomY = Random.Range(-0.5f, 0.5f);
-
-            Vector2 targetPosition = (Vector2)transform.position + new Vector2(randomX, randomY);
-            enemy.transform.DOMove(targetPosition, 2f).SetEase(Ease.OutCubic);
         }
     }
 
@@ -69,8 +74,7 @@ public class BlackHole : MonoBehaviour
     {
         yield return new WaitForSeconds(durationTime);
 
-        ReturnEnemiesToOriginalPosition();
-
+        ResetEnemies();
         Sequence fadeOutSequence = DOTween.Sequence();
 
         fadeOutSequence.Join(sr.DOFade(0f, 1.5f));
@@ -78,12 +82,19 @@ public class BlackHole : MonoBehaviour
 
         fadeOutSequence.OnComplete(() =>
         {
-            GameContoller.instance.isBlackHoleSpawn = false;
+            foreach (EnemyBase enemy in attractedEnemies)
+            {
+                enemy.pathFollower.canMove = true;
+            }
+            attractedEnemies.Clear();
+            originalPositions.Clear();
+
+            GameController.instance.isBlackHoleSpawn = false;
             Destroy(gameObject);
         });
     }
 
-    private void ReturnEnemiesToOriginalPosition()
+    private void ResetEnemies()
     {
         for (int i = 0; i < attractedEnemies.Count; i++)
         {
@@ -92,8 +103,5 @@ public class BlackHole : MonoBehaviour
 
             enemy.transform.DOMove(originalPosition, 1f).SetEase(Ease.OutCubic);
         }
-
-        attractedEnemies.Clear();
-        originalPositions.Clear();
     }
 }

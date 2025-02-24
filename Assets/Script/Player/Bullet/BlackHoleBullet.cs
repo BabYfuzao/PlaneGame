@@ -43,11 +43,11 @@ public class BlackHoleBullet : PlayerBulletBase
     {
         float randomValue = Random.Range(0f, 1f);
 
-        if (randomValue <= probability && !GameContoller.instance.isBlackHoleSpawn)
+        if (randomValue <= probability && !GameController.instance.isBlackHoleSpawn)
         {
             GameObject blackHoleObj = Instantiate(blackHolePrefab, enemyPos.position, Quaternion.identity);
             blackHoleObj.GetComponent<BlackHole>().BlackHoleDuration(blackHoleDurationTime);
-            GameContoller.instance.isBlackHoleSpawn = true;
+            GameController.instance.isBlackHoleSpawn = true;
         }
     }
 }

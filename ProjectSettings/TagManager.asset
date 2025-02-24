@@ -5,9 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Remover
   - EnemyLevel
   - BlackHole
+  - EnemyRemover
+  - BulletRemover
+  - EnemySpawner
   layers:
   - Default
   - TransparentFX

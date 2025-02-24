@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class EnemyHitVFX : MonoBehaviour
 {
-    public void DestroyVFX()
+    private void Start()
+    {
+        Invoke("Destroy", 0.5f);
+    }
+
+    public void Destroy()
     {
         Destroy(gameObject);
     }

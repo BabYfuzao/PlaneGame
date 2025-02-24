@@ -2,16 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class Boss : EnemyBase
 {
     public GameObject enemyBulletPrefab;
     public float shootCD;
-    private bool canShoot = true;
+    public bool canShoot = true;
 
     protected override void Start()
     {
         base.Start();
+    }
+
+    private void Update()
+    {
+        StartCoroutine(BulletShoot());
+    }
+
+    public override void StartMove()
+    {
+        base.StartMove();
     }
 
     public override void HitCountUpdate(int hitCount)
@@ -19,27 +30,14 @@ public class Boss : EnemyBase
         base.HitCountUpdate(hitCount);
     }
 
-    protected override void CreateMovement()
-    {
-        //var sequence = DOTween.Sequence();
-
-        transform.DOLocalMoveX(originalPos.x - enterDistance, 1f).OnComplete(() =>
-        {
-            StartCoroutine(pathFollower.StartFollow(enterDelay));
-            StartCoroutine(BulletShoot());
-        });
-
-        /*sequence.Append(transform.DOLocalMoveY(originalPos.y + 3, 1f))
-                .Append(transform.DOLocalMoveY(originalPos.y - 3, 1f))
-                .SetLoops(-1, LoopType.Yoyo);*/
-    }
-
     public IEnumerator BulletShoot()
     {
-        while (canShoot)
+        if (canShoot)
         {
             GameObject enemyBullet = Instantiate(enemyBulletPrefab, transform.position, Quaternion.identity);
+            canShoot = false;
             yield return new WaitForSeconds(shootCD);
+            canShoot = true;
         }
     }
 
@@ -55,6 +53,10 @@ public class Boss : EnemyBase
 
     protected override void CheckDead()
     {
-        base.CheckDead();
+        if (hP <= 0)
+        {
+            Destroy(gameObject);
+            GameController.instance.GameOver();
+        }
     }
 }

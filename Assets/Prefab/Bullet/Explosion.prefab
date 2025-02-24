@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1361331379
   m_SortingLayer: 3
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: c9c538b2ea1dfe84f90e83d9ecf822ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -102,7 +102,6 @@ MonoBehaviour:
   explosionPrefab: {fileID: 5555698192914516244}
   enemyHitVFXPrefab: {fileID: 646013156821495006, guid: 73fb937958abe854a83271d887867a6e, type: 3}
   atk: 1
-  canHit: 0
 --- !u!58 &3882506023666008922
 CircleCollider2D:
   m_ObjectHideFlags: 0

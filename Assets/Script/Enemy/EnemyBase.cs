@@ -5,26 +5,28 @@ using DG.Tweening;
 using TMPro;
 using PathCreation.Examples;
 using System;
+using System.Globalization;
 
 public class EnemyBase : MonoBehaviour
 {
     public SpriteRenderer sr;
 
-    protected PathFollower pathFollower;
+    public PathFollower pathFollower;
 
     public bool isBoss;
 
     public int hP;
     protected HPBar hPBar;
 
-    public float enterDistance;
-    public float enterDelay;
+    public float delay;
 
     public TextMeshPro dBHitCountText;
     public int dBHitCount;
 
     public bool isRed, isGreen, isBlue;
-    public GameObject[] rgbBuffObjs;
+    public bool isWeak;
+    public bool isBuff;
+    public GameObject rgbBuffObj;
 
     protected Vector3 originalPos;
 
@@ -41,7 +43,12 @@ public class EnemyBase : MonoBehaviour
 
         originalPos = transform.localPosition;
 
-        //CreateMovement();
+        Invoke("StartMove", delay);
+    }
+
+    public virtual void StartMove()
+    {
+        pathFollower.canMove = true;
     }
 
     public virtual void HitCountUpdate(int hitCount)
@@ -61,16 +68,13 @@ public class EnemyBase : MonoBehaviour
         dBHitCountText.text = dBHitCount.ToString();
     }
 
-    protected virtual void CreateMovement()
-    {
-        transform.DOLocalMoveX(originalPos.x - enterDistance, 1f).OnComplete(() =>
-        {
-            StartCoroutine(pathFollower.StartFollow(enterDelay));
-        });
-    }
-
     public virtual void TakeDamage(int damage)
     {
+        if (isWeak)
+        {
+            damage += 1;
+        }
+
         hP -= damage;
         hPBar.SetHPBar(-damage);
         CheckDead();

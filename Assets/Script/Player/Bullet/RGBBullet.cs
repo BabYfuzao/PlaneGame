@@ -5,11 +5,9 @@ using UnityEngine;
 public class RGBBullet : PlayerBulletBase
 {
     public SpriteRenderer sr;
-    public Color[] bulletImages;
 
     public enum RGBBulletType
     {
-        White,
         Red,
         Green,
         Blue
@@ -23,23 +21,26 @@ public class RGBBullet : PlayerBulletBase
 
         bulletType = (RGBBulletType)Random.Range(0, System.Enum.GetValues(typeof(RGBBulletType)).Length);
         SetBulletSprite(bulletType);
+
+        float randomScale = Random.Range(0.8f, 1.2f);
+        transform.localScale = new Vector3(randomScale, randomScale, 1);
+
+        float randomRotation = Random.Range(0f, 360f);
+        transform.rotation = Quaternion.Euler(0, 0, randomRotation);
     }
 
     private void SetBulletSprite(RGBBulletType type)
     {
         switch (type)
         {
-            case RGBBulletType.White:
-                sr.color = bulletImages[0];
-                break;
             case RGBBulletType.Red:
-                sr.color = bulletImages[1];
+                sr.color = Color.red;
                 break;
             case RGBBulletType.Green:
-                sr.color = bulletImages[2];
+                sr.color = Color.green;
                 break;
             case RGBBulletType.Blue:
-                sr.color = bulletImages[3];
+                sr.color = Color.blue;
                 break;
             default:
                 break;
@@ -57,68 +58,17 @@ public class RGBBullet : PlayerBulletBase
         {
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
             enemy.TakeDamage(atk);
-            SetEnemyBuff(enemy);
 
-            CheckEnemyBuff(enemy);
+            if (!enemy.isBuff)
+            {
+                RGBWeapon weapon = FindObjectOfType<RGBWeapon>();
+                weapon.SetEnemyBuff(enemy, bulletType);
+            }
 
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
+            ParticleSystem.MainModule data = enemyHitVFX.GetComponent<ParticleSystem>().main;
+            data.startColor = sr.color;
             Destroy(gameObject);
-        }
-    }
-
-    private void SetEnemyBuff(EnemyBase enemy)
-    {
-        foreach (var buffObj in enemy.rgbBuffObjs)
-        {
-            buffObj.SetActive(true);
-        }
-
-        switch (bulletType)
-        {
-            case RGBBulletType.Red:
-                enemy.isRed = true;
-                enemy.rgbBuffObjs[0].GetComponent<SpriteRenderer>().color = Color.red;
-                break;
-            case RGBBulletType.Green:
-                enemy.isGreen = true;
-                enemy.rgbBuffObjs[0].GetComponent<SpriteRenderer>().color = Color.green;
-                break;
-            case RGBBulletType.Blue:
-                enemy.isBlue = true;
-                enemy.rgbBuffObjs[0].GetComponent<SpriteRenderer>().color = Color.blue;
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void CheckEnemyBuff(EnemyBase enemy)
-    {
-        //Burn
-        if (enemy.isRed && enemy.isGreen)
-        {
-            ResetBuff(enemy);
-        }
-        else if (enemy.isRed && enemy.isBlue)
-        {
-            ResetBuff(enemy);
-        }
-        //Palsy
-        else if (enemy.isGreen && enemy.isBlue)
-        {
-            ResetBuff(enemy);
-        }
-    }
-
-    public void ResetBuff(EnemyBase enemy)
-    {
-        enemy.isRed = false;
-        enemy.isGreen = false;
-        enemy.isBlue = false;
-
-        foreach (var buffObj in enemy.rgbBuffObjs)
-        {
-            buffObj.GetComponent<SpriteRenderer>().color = Color.clear;
         }
     }
 }
