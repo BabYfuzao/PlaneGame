@@ -7,10 +7,47 @@ public class BlackHole : MonoBehaviour
 {
     public SpriteRenderer sr;
 
-    public float attractionRange;
-    public float attractionSpeed;
-
     private List<EnemyBase> attractedEnemies = new List<EnemyBase>();
+    private List<Vector2> originalPositions = new List<Vector2>();
+
+    private void Start()
+    {
+    }
+
+    void Update()
+    {
+        transform.Rotate(Vector3.forward, 100f * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Enemy"))
+        {
+            EnemyBase enemy = collider.GetComponent<EnemyBase>();
+            if (!attractedEnemies.Contains(enemy))
+            {
+                attractedEnemies.Add(enemy);
+                originalPositions.Add(enemy.transform.position);
+                enemy.OnDeath += HandleEnemyDeath;
+            }
+
+            float randomX = Random.Range(-0.5f, 0.5f);
+            float randomY = Random.Range(-0.5f, 0.5f);
+
+            Vector2 targetPosition = (Vector2)transform.position + new Vector2(randomX, randomY);
+            enemy.transform.DOMove(targetPosition, 2f).SetEase(Ease.OutCubic);
+        }
+    }
+
+    private void HandleEnemyDeath(EnemyBase enemy)
+    {
+        int index = attractedEnemies.IndexOf(enemy);
+        if (index != -1)
+        {
+            attractedEnemies.RemoveAt(index);
+            originalPositions.RemoveAt(index);
+        }
+    }
 
     public void BlackHoleDuration(float durationTime)
     {
@@ -24,18 +61,20 @@ public class BlackHole : MonoBehaviour
 
         sequence.OnComplete(() =>
         {
-            StartCoroutine(FadeOutAndDestroy(durationTime));
+            StartCoroutine(BlackHoleDestroy(durationTime));
         });
     }
 
-    private IEnumerator FadeOutAndDestroy(float durationTime)
+    private IEnumerator BlackHoleDestroy(float durationTime)
     {
         yield return new WaitForSeconds(durationTime);
 
+        ReturnEnemiesToOriginalPosition();
+
         Sequence fadeOutSequence = DOTween.Sequence();
 
-        fadeOutSequence.Join(sr.DOFade(0f, 1f));
-        fadeOutSequence.Join(transform.DOScale(Vector3.zero, 1f));
+        fadeOutSequence.Join(sr.DOFade(0f, 1.5f));
+        fadeOutSequence.Join(transform.DOScale(Vector3.zero, 1.5f));
 
         fadeOutSequence.OnComplete(() =>
         {
@@ -44,32 +83,17 @@ public class BlackHole : MonoBehaviour
         });
     }
 
-    void Update()
+    private void ReturnEnemiesToOriginalPosition()
     {
-        transform.Rotate(Vector3.forward, 100f * Time.deltaTime);
-        AttractEnemies();
-    }
-
-    private void AttractEnemies()
-    {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, attractionRange);
-
-        foreach (var collider in enemies)
+        for (int i = 0; i < attractedEnemies.Count; i++)
         {
-            if (collider.CompareTag("Enemy"))
-            {
-                EnemyBase enemy = collider.GetComponent<EnemyBase>();
-                attractedEnemies.Add(enemy);
-                Vector2 direction = (transform.position - enemy.transform.position).normalized;
-                Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
-                rb.MovePosition(rb.position + direction * attractionSpeed * Time.deltaTime);
-            }
-        }
-    }
+            EnemyBase enemy = attractedEnemies[i];
+            Vector2 originalPosition = originalPositions[i];
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attractionRange);
+            enemy.transform.DOMove(originalPosition, 1f).SetEase(Ease.OutCubic);
+        }
+
+        attractedEnemies.Clear();
+        originalPositions.Clear();
     }
 }

@@ -34,18 +34,18 @@ public class BlackHoleBullet : PlayerBulletBase
                 damagedEnemies.Add(enemy);
                 GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
 
-                BlackHoleInstantiate();
+                BlackHoleInstantiate(enemy.transform);
             }
         }
     }
 
-    public void BlackHoleInstantiate()
+    public void BlackHoleInstantiate(Transform enemyPos)
     {
         float randomValue = Random.Range(0f, 1f);
 
         if (randomValue <= probability && !GameContoller.instance.isBlackHoleSpawn)
         {
-            GameObject blackHoleObj = Instantiate(blackHolePrefab, transform.position, Quaternion.identity);
+            GameObject blackHoleObj = Instantiate(blackHolePrefab, enemyPos.position, Quaternion.identity);
             blackHoleObj.GetComponent<BlackHole>().BlackHoleDuration(blackHoleDurationTime);
             GameContoller.instance.isBlackHoleSpawn = true;
         }

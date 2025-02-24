@@ -4,12 +4,15 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using PathCreation.Examples;
+using System;
 
 public class EnemyBase : MonoBehaviour
 {
     public SpriteRenderer sr;
 
     protected PathFollower pathFollower;
+
+    public bool isBoss;
 
     public int hP;
     protected HPBar hPBar;
@@ -19,7 +22,12 @@ public class EnemyBase : MonoBehaviour
 
     public TextMeshPro dBHitCountText;
     public int dBHitCount;
+
+    public bool isRed, isGreen, isBlue;
+
     protected Vector3 originalPos;
+
+    public event Action<EnemyBase> OnDeath;
 
     protected virtual void Start()
     {
@@ -32,7 +40,7 @@ public class EnemyBase : MonoBehaviour
 
         originalPos = transform.localPosition;
 
-        CreateMovement();
+        //CreateMovement();
     }
 
     public virtual void HitCountUpdate(int hitCount)
@@ -60,28 +68,6 @@ public class EnemyBase : MonoBehaviour
         });
     }
 
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "EnemyRemover")
-        {
-            Debug.Log("1");
-            Destroy(gameObject);
-        }
-        else if (collision.gameObject.CompareTag("BlackHole"))
-        {
-            Debug.Log("bh");
-            pathFollower.canMove = false;
-        }
-    }
-
-    protected virtual void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "BlackHole")
-        {
-            pathFollower.canMove = true;
-        }
-    }
-
     public virtual void TakeDamage(int damage)
     {
         hP -= damage;
@@ -101,6 +87,7 @@ public class EnemyBase : MonoBehaviour
     {
         if (hP <= 0)
         {
+            OnDeath?.Invoke(this);
             Destroy(gameObject);
         }
     }

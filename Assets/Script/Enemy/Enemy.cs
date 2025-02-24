@@ -20,14 +20,24 @@ public class Enemy : EnemyBase
         base.CreateMovement();
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision);
+        if (collision.gameObject.name == "EnemyRemover")
+        {
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("BlackHole"))
+        {
+            pathFollower.canMove = false;
+        }
     }
 
-    protected override void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        base.OnTriggerExit2D(collision);
+        if (collision.gameObject.name == "BlackHole")
+        {
+            pathFollower.canMove = true;
+        }
     }
 
     public override void TakeDamage(int damage)
