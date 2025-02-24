@@ -9,6 +9,7 @@ public class RGBBullet : PlayerBulletBase
 
     public enum RGBBulletType
     {
+        White,
         Red,
         Green,
         Blue
@@ -28,14 +29,19 @@ public class RGBBullet : PlayerBulletBase
     {
         switch (type)
         {
-            case RGBBulletType.Red:
+            case RGBBulletType.White:
                 sr.color = bulletImages[0];
                 break;
-            case RGBBulletType.Green:
+            case RGBBulletType.Red:
                 sr.color = bulletImages[1];
                 break;
-            case RGBBulletType.Blue:
+            case RGBBulletType.Green:
                 sr.color = bulletImages[2];
+                break;
+            case RGBBulletType.Blue:
+                sr.color = bulletImages[3];
+                break;
+            default:
                 break;
         }
     }
@@ -72,6 +78,8 @@ public class RGBBullet : PlayerBulletBase
                 break;
             case RGBBulletType.Blue:
                 enemy.isBlue = true;
+                break;
+            default:
                 break;
         }
     }
