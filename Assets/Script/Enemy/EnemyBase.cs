@@ -24,6 +24,7 @@ public class EnemyBase : MonoBehaviour
     public int dBHitCount;
 
     public bool isRed, isGreen, isBlue;
+    public GameObject[] rgbBuffObjs;
 
     protected Vector3 originalPos;
 

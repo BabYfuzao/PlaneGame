@@ -59,7 +59,7 @@ public class RGBBullet : PlayerBulletBase
             enemy.TakeDamage(atk);
             SetEnemyBuff(enemy);
 
-            CheckEnemyDebuff(enemy);
+            CheckEnemyBuff(enemy);
 
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
@@ -68,40 +68,57 @@ public class RGBBullet : PlayerBulletBase
 
     private void SetEnemyBuff(EnemyBase enemy)
     {
+        foreach (var buffObj in enemy.rgbBuffObjs)
+        {
+            buffObj.SetActive(true);
+        }
+
         switch (bulletType)
         {
             case RGBBulletType.Red:
                 enemy.isRed = true;
+                enemy.rgbBuffObjs[0].GetComponent<SpriteRenderer>().color = Color.red;
                 break;
             case RGBBulletType.Green:
                 enemy.isGreen = true;
+                enemy.rgbBuffObjs[0].GetComponent<SpriteRenderer>().color = Color.green;
                 break;
             case RGBBulletType.Blue:
                 enemy.isBlue = true;
+                enemy.rgbBuffObjs[0].GetComponent<SpriteRenderer>().color = Color.blue;
                 break;
             default:
                 break;
         }
     }
 
-    public void CheckEnemyDebuff(EnemyBase enemy)
+    public void CheckEnemyBuff(EnemyBase enemy)
     {
         //Burn
         if (enemy.isRed && enemy.isGreen)
         {
-            enemy.isRed = false;
-            enemy.isGreen = false;
+            ResetBuff(enemy);
         }
         else if (enemy.isRed && enemy.isBlue)
         {
-            enemy.isRed = false;
-            enemy.isBlue = false;
+            ResetBuff(enemy);
         }
         //Palsy
         else if (enemy.isGreen && enemy.isBlue)
         {
-            enemy.isGreen = false;
-            enemy.isBlue = false;
+            ResetBuff(enemy);
+        }
+    }
+
+    public void ResetBuff(EnemyBase enemy)
+    {
+        enemy.isRed = false;
+        enemy.isGreen = false;
+        enemy.isBlue = false;
+
+        foreach (var buffObj in enemy.rgbBuffObjs)
+        {
+            buffObj.GetComponent<SpriteRenderer>().color = Color.clear;
         }
     }
 }
