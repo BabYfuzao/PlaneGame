@@ -51,6 +51,14 @@ public class EnemyBase : MonoBehaviour
         pathFollower.canMove = true;
     }
 
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerBullet"))
+        {
+            SoundManager.instance.PlayEnemyHitSFX();
+        }
+    }
+
     public virtual void HitCountUpdate(int hitCount)
     {
         dBHitCount += hitCount;
@@ -92,6 +100,7 @@ public class EnemyBase : MonoBehaviour
     {
         if (hP <= 0)
         {
+            SoundManager.instance.PlayEnemyDeadSFX();
             OnDeath?.Invoke(this);
             Destroy(gameObject);
         }

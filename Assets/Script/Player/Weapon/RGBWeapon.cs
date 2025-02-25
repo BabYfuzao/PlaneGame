@@ -9,7 +9,14 @@ public class RGBWeapon : WeaponBase
 
     public override IEnumerator BulletShoot()
     {
-        yield return base.BulletShoot();
+        if (canShoot)
+        {
+            SoundManager.instance.PlayRGBBulletShootSFX();
+            GameObject bulletObj = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            canShoot = false;
+            yield return new WaitForSeconds(shootCD);
+            canShoot = true;
+        }
     }
 
     public void SetEnemyBuff(EnemyBase enemy, RGBBulletType bulletType)

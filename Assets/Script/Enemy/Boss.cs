@@ -30,6 +30,18 @@ public class Boss : EnemyBase
         base.HitCountUpdate(hitCount);
     }
 
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "EnemyRemover")
+        {
+            Destroy(gameObject);
+        }
+        if (collision.CompareTag("PlayerBullet"))
+        {
+            SoundManager.instance.PlayEnemyHitSFX();
+        }
+    }
+
     public IEnumerator BulletShoot()
     {
         if (canShoot)

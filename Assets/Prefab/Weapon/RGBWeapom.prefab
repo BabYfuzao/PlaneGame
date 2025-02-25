@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootCD: 0.5
   bulletPrefab: {fileID: 1362775005795658664, guid: 3d642f4e4ca38e249822ef077142d4df, type: 3}
+  weaponID: 2
   buffVFXs:
   - {fileID: 1141310455856065981, guid: 0bfe43f9fab36ff44930ad2fb8bd4810, type: 3}
   - {fileID: 3877850305525756393, guid: 3d288e0b6ad81a048b50ce8991d8b390, type: 3}

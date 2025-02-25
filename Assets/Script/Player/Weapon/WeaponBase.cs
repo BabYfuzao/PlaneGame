@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,8 @@ public class WeaponBase : MonoBehaviour
     public float shootCD;
     protected bool canShoot = true;
     public GameObject bulletPrefab;
+
+    public int weaponID;
 
     public virtual IEnumerator BulletShoot()
     {

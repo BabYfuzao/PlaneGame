@@ -12,6 +12,7 @@ public class BlackHole : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.instance.PlayBHSFX();
     }
 
     void Update()

@@ -6,6 +6,8 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
+    public GameObject[] weaponIcon;
+
     public GameObject gameStartPanel;
 
     public GameObject pausePanel;
@@ -28,6 +30,16 @@ public class GameController : MonoBehaviour
         Time.timeScale = 0;
         isGameInProgress = false;
         gameStartPanel.SetActive(true);
+    }
+
+    public void WeaponIconDisplay(int id)
+    {
+        for (int i = 0; i < weaponIcon.Length; i++)
+        {
+            weaponIcon[i].SetActive(false);
+        }
+
+        weaponIcon[id].SetActive(true);
     }
 
     public void GameStart()

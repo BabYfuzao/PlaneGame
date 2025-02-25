@@ -6,6 +6,13 @@ public class BlackHoleWeapon : WeaponBase
 {
     public override IEnumerator BulletShoot()
     {
-        yield return base.BulletShoot();
+        if (canShoot)
+        {
+            SoundManager.instance.PlayBHBulletShootSFX();
+            GameObject bulletObj = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            canShoot = false;
+            yield return new WaitForSeconds(shootCD);
+            canShoot = true;
+        }
     }
 }

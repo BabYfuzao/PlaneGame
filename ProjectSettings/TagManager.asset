@@ -10,6 +10,7 @@ TagManager:
   - EnemyRemover
   - BulletRemover
   - EnemySpawner
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX

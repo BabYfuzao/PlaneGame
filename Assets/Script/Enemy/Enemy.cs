@@ -21,11 +21,11 @@ public class Enemy : EnemyBase
         base.HitCountUpdate(hitCount);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "EnemyRemover")
+        if (collision.CompareTag("PlayerBullet"))
         {
-            Destroy(gameObject);
+            SoundManager.instance.PlayEnemyHitSFX();
         }
     }
 

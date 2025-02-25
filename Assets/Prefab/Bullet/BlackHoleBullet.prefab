@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3863266514418233215}
   m_Layer: 0
   m_Name: BlackHoleBullet
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   enemyHitVFXPrefab: {fileID: 646013156821495006, guid: 73fb937958abe854a83271d887867a6e, type: 3}
   blackHolePrefab: {fileID: 4529783081265197209, guid: 7c1e686a2e53bf14b81a8b154a0ce9fa, type: 3}
   blackHoleDurationTime: 2
-  probability: 0.2
+  probability: 0.5
 --- !u!70 &3863266514418233215
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -52,6 +52,8 @@ public class Explosion : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            SoundManager.instance.PlayExplosionSFX();
+
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
 
             if (!damagedEnemies.Contains(enemy))
