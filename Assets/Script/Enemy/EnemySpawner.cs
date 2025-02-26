@@ -6,9 +6,8 @@ public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner instance;
 
-    public List<GameObject> enemyLevels;
+    public List<GameObject> enemys;
     private int i = -1;
-    public bool isBossSpawn = false;
 
     private void Awake()
     {
@@ -25,16 +24,11 @@ public class EnemySpawner : MonoBehaviour
 
     private void ActiveEnemySpawner()
     {
-        i++;
-        if (i < enemyLevels.Count)
+        for(int i = 0; i < enemys.Count; i++)
         {
-            GameObject enemyLevel = enemyLevels[i];
-            enemyLevel.SetActive(true);
-
-            if (enemyLevel.name == "BossLevel")
-            {
-                isBossSpawn = true;
-            }
+            GameObject enemy = enemys[i];
+            enemy.SetActive(true);
+            CameraMove.instance.canMove = false;
         }
     }
 }

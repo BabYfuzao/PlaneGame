@@ -63,8 +63,8 @@ public class Player : MonoBehaviour
     {
         hP -= damage;
         hPBar.SetHPBar(-damage);
-        CheckDead();
         StartCoroutine(HitEffect());
+        CheckDead();
     }
 
     public IEnumerator HitEffect()

@@ -41,13 +41,14 @@ public class EnemyBase : MonoBehaviour
         hPBar.currentHP = hPBar.maxHP;
         hPBar.UpdateHPBar();
 
-        originalPos = transform.localPosition;
+        originalPos = transform.position;
 
-        Invoke("StartMove", delay);
+        StartCoroutine(StartMove());
     }
 
-    public virtual void StartMove()
+    public virtual IEnumerator StartMove()
     {
+        yield return new WaitForSeconds(delay);
         pathFollower.canMove = true;
     }
 

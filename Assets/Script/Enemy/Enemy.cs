@@ -11,11 +11,6 @@ public class Enemy : EnemyBase
         base.Start();
     }
 
-    public override void StartMove()
-    {
-        base.StartMove();
-    }
-
     public override void HitCountUpdate(int hitCount)
     {
         base.HitCountUpdate(hitCount);

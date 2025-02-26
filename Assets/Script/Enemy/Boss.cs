@@ -3,26 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using Random = UnityEngine.Random;
 
 public class Boss : EnemyBase
 {
-    public GameObject enemyBulletPrefab;
+    public Transform movePos;
+
+    public Transform attackStartPos;
+    public Transform attackEndPos;
+
+    public GameObject bossBulletPrefab;
+    public GameObject bossBombPrefab;
     public float shootCD;
-    public bool canShoot = true;
+
+    public bool isShootMode = false;
+
+    public bool isBombMode = false;
+    public float bombDurationTime;
 
     protected override void Start()
     {
         base.Start();
     }
 
-    private void Update()
+    public override IEnumerator StartMove()
     {
-        StartCoroutine(BulletShoot());
-    }
+        transform.DOMove(movePos.position, delay).SetEase(Ease.OutCubic);
+        yield return new WaitForSeconds(delay);
 
-    public override void StartMove()
-    {
-        base.StartMove();
+        pathFollower.canMove = true;
+        isShootMode = true;
+        yield return new WaitForSeconds(delay);
+        StartCoroutine(BulletShoot());
     }
 
     public override void HitCountUpdate(int hitCount)
@@ -42,14 +54,49 @@ public class Boss : EnemyBase
         }
     }
 
+    public void RandomAction()
+    {
+        isShootMode = false;
+        isBombMode = false;
+
+        if (Random.Range(0, 10) % 2 == 0)
+        {
+            pathFollower.canMove = true;
+            isShootMode = true;
+            StartCoroutine(BulletShoot());
+        }
+        else
+        {
+            pathFollower.canMove = false;
+            isBombMode = true;
+            StartCoroutine(BombShoot());
+        }
+    }
+
     public IEnumerator BulletShoot()
     {
-        if (canShoot)
+        if (isShootMode)
         {
-            GameObject enemyBullet = Instantiate(enemyBulletPrefab, transform.position, Quaternion.identity);
-            canShoot = false;
-            yield return new WaitForSeconds(shootCD);
-            canShoot = true;
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject bullet = Instantiate(bossBulletPrefab, transform.position, Quaternion.identity);
+                yield return new WaitForSeconds(shootCD);
+            }
+            RandomAction();
+        }
+    }
+
+    public IEnumerator BombShoot()
+    {
+        if (isBombMode)
+        {
+            transform.DOMove(attackStartPos.position, delay).SetEase(Ease.OutCubic);
+            yield return new WaitForSeconds(2f);
+
+            transform.DOMove(attackEndPos.position, bombDurationTime).SetEase(Ease.OutCubic);
+            GameObject bomb = Instantiate(bossBombPrefab, transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(bombDurationTime);
+            RandomAction();
         }
     }
 
