@@ -5,9 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - EnemyLevel
   - BlackHole
-  - EnemyRemover
   - BulletRemover
   - EnemySpawner
   - PlayerBullet

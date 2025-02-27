@@ -12,8 +12,13 @@ public class SceneLoader : MonoBehaviour
         instance = this;
     }
 
-    public void LoadGameScene()
+    public void LoadTitleScene()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void LoadLevelScene(int level)
+    {
+        SceneManager.LoadScene(level);
     }
 }

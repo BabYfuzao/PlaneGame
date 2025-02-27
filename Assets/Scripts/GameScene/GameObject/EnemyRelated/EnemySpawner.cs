@@ -7,7 +7,6 @@ public class EnemySpawner : MonoBehaviour
     public static EnemySpawner instance;
 
     public List<GameObject> enemys;
-    private int i = -1;
 
     private void Awake()
     {

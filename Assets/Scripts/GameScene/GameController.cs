@@ -32,6 +32,13 @@ public class GameController : MonoBehaviour
         gameStartPanel.SetActive(true);
     }
 
+    public void GameStart()
+    {
+        Time.timeScale = 1;
+        gameStartPanel.SetActive(false);
+        isGameInProgress = true;
+        SoundManager.instance.PlayGameBGM(isGameInProgress);
+    }
     public void WeaponIconDisplay(int id)
     {
         for (int i = 0; i < weaponIcon.Length; i++)
@@ -40,14 +47,6 @@ public class GameController : MonoBehaviour
         }
 
         weaponIcon[id].SetActive(true);
-    }
-
-    public void GameStart()
-    {
-        Time.timeScale = 1;
-        gameStartPanel.SetActive(false);
-        isGameInProgress = true;
-        SoundManager.instance.PlayGameBGM(isGameInProgress);
     }
 
     public void PauseControl()

@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class ButtonController : MonoBehaviour
 {
+    //Title Scene
+    public void LevelSelectPanel()
+    {
+        TitleSceneController.instance.LevelSelectPanel();
+    }
+
+    //Game Scene
     public void StartButton()
     {
         GameController.instance.GameStart();
@@ -11,6 +18,6 @@ public class ButtonController : MonoBehaviour
 
     public void ReStartGameButton()
     {
-        SceneLoader.instance.LoadGameScene();
+        //SceneLoader.instance.LoadGameScene();
     }
 }
