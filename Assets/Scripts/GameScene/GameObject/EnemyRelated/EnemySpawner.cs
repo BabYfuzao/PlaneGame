@@ -2,32 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class EnemyWave
+{
+    public GameObject[] enemyPrefabs;
+    public int waveIndex;
+    public bool isBossWave;
+}
+
 public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner instance;
 
-    public List<GameObject> enemys;
+    public EnemyWave[] enemyWaves;
+    public int currentWave;
+    public int enemyRemainCount;
+    private bool isBossSpawned = false;
 
     private void Awake()
     {
         instance = this;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void EnemySpawn()
     {
-        if (collision.gameObject.CompareTag("EnemyLevel"))
+        currentWave++;
+
+        if (enemyWaves[currentWave].isBossWave && !isBossSpawned)
         {
-            ActiveEnemySpawner();
+            isBossSpawned = true;
+        }
+
+        for (int i = 0; i < enemyWaves[currentWave].enemyPrefabs.Length; i++)
+        {
+            enemyWaves[currentWave].enemyPrefabs[i].SetActive(true);
+            enemyRemainCount++;
         }
     }
 
-    private void ActiveEnemySpawner()
+    public void EnemyCountUpdate()
     {
-        for(int i = 0; i < enemys.Count; i++)
+        enemyRemainCount--;
+        CheckAllEnemyDefeated();
+    }
+
+    public void CheckAllEnemyDefeated()
+    {
+        if (enemyRemainCount <= 0)
         {
-            GameObject enemy = enemys[i];
-            enemy.SetActive(true);
-            CameraMove.instance.canMove = false;
+            EnemySpawn();
         }
     }
 }

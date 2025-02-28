@@ -6,19 +6,26 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
+    [Header("-Player related UI-")]
     public GameObject[] weaponIcon;
 
+    [Header("Panel")]
     public GameObject gameStartPanel;
 
     public GameObject pausePanel;
     public GameObject pauseButton;
-    public bool isGameInProgress = false;
-    public bool isGamePause = false;
 
     public GameObject gameOverPanel;
-    public bool isGameOver = false;
 
+    [Header("-Function-")]
     public bool isBlackHoleSpawn;
+
+    [Header("Game Status")]
+    public int level;
+
+    public bool isGameInProgress = false;
+    public bool isGamePause = false;
+    public bool isGameOver = false;
 
     private void Awake()
     {
@@ -37,6 +44,7 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1;
         gameStartPanel.SetActive(false);
         isGameInProgress = true;
+        EnemySpawner.instance.EnemySpawn();
         SoundManager.instance.PlayGameBGM(isGameInProgress);
     }
     public void WeaponIconDisplay(int id)
