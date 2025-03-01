@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Weapon_2 : Weapon
+{
+    public override void Shoot()
+    {
+        if (shootTimer <= 0)
+        {
+            GameObject b = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector2(10, 0);
+
+            b = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector3(-5, 2);
+
+            b = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector2(5, 4);
+
+            b = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 6);
+
+            b = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector2(-5, -4);
+
+            b = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector2(5, -2);
+
+            b = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -6);
+
+            b = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector2(-10, 0);
+
+            shootTimer = shootCooldown;
+        }
+    }
+}
