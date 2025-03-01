@@ -1,0 +1,68 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class missiletrack : MonoBehaviour
+{   
+    //private Rigidbody2D rb;
+    public float force;
+    public float speed;
+    public Vector2 currentPos;
+    public GameObject enemy;
+    //public float distance;
+    // Start is called before the first frame update
+    void Start()
+    {
+ 
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (enemy == null)
+        {
+            //rb = GetComponent<Rigidbody2D>();
+            enemy = GameObject.FindGameObjectWithTag("Enemy");
+            currentPos = GetComponent<Transform>().position;
+
+            //float distance = Vector2.Distance(enemy.transform.position, this.transform.position);
+
+            //Vector2 direction = enemy.transform.position - transform.position;
+            //rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
+
+            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+
+
+            Vector3 direction = enemy.transform.position - transform.position;
+
+            float step = speed * Time.deltaTime;
+
+            Vector3 newDir = Vector3.RotateTowards(transform.up, direction, step, 0.0f);
+            transform.up = newDir;
+
+            transform.position += transform.up * speed * Time.deltaTime;
+        }
+        else
+        {
+            transform.position += transform.up * speed * Time.deltaTime;
+        }
+        //if (Vector2.Distance(this.transform.position, enemy.transform.position) < distance)
+        //{
+        //  transform.position = Vector2.MoveTowards(this.transform.position, enemy.transform.position, speed * Time.deltaTime);
+        //}
+        // else
+        // {   
+        // if (Vector2.Distance(transform.position, currentPos) < -0)
+        // {
+
+        // }
+        // else
+        // {
+        //     transform.position = Vector2.MoveTowards(enemy.transform.position, currentPos, speed * Time.deltaTime);
+        // }
+
+        // }
+    }
+}
