@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Weapon : MonoBehaviour
+{
+    public float speed = 1f; 
+    protected float shootTimer;
+    public float shootCooldown;
+    public GameObject bulletPrefabs;
+    public GameObject waveformWeapon;
+    public GameObject LaserShoot;
+    public GameObject missile;
+    public GameObject player;
+    public GameObject crossedfire;
+    public GameObject boltbullet;
+    public GameObject enemy;
+
+
+    public void Update()
+    {
+        if(shootTimer > 0)
+        {
+            shootTimer -= Time.deltaTime * 2;
+        }
+    }
+
+    public virtual void Shoot()
+    {
+
+    }
+}
