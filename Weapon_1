@@ -1,0 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Weapon_1 : Weapon
+{
+    public override void Shoot()
+    {
+        if (shootTimer <= 0)
+        {
+            GameObject b = Instantiate(boltbullet, transform.position, Quaternion.identity);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector2(10, 0);
+            shootTimer = shootCooldown;
+        }
+    }
+}
