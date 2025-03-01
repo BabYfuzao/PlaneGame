@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class fireBulletExp : MonoBehaviour
+{
+     public GameObject FirehitVFX;
+    // Start is called before the first frame update
+    private void Start()
+    {
+
+
+        //Invoke("FVFX1", 2f);  
+    }
+
+    // Update is called once per frame
+    public void Update()
+    {
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //if (collision.gameObject.tag == "Emeny")
+        //{
+            //Instantiate(FirehitVFX, transform.position, Quaternion.identity);
+            //Destroy(gameObject, 2f);
+        //}
+    }
+    //public void FVFX1()
+    //{
+    //Instantiate(FirehitVFX, transform.position, Quaternion.identity);
+    //Destroy(gameObject);
+    // }
+}
