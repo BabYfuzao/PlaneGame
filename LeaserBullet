@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LeaserBullet : MonoBehaviour
+{
+    public Animator anim;
+    public Weapon_4 laser;
+    // Start is called before the first frame update
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (laser == null)
+        {
+            anim.Play("Pulse Animation");
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    { 
+        if (collision.gameObject.tag == "Emeny")
+        {
+            anim.Play("Pulse Animation");
+        }
+    }
+}

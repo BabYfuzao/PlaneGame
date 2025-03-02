@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Weapon_3 : Weapon
+{
+    public override void Shoot()
+    {
+        if (shootTimer <= 0)
+        {
+            player = GameObject.Find("Player");
+            Vector3 randomizePosition = new Vector3(player.transform.position.x, Random.Range(player.transform.position.y - 2, player.transform.position.y + 2), 0);
+            Quaternion Rotation = Quaternion.Euler(0, 0, -90);
+            GameObject b = Instantiate(missile, randomizePosition, Rotation);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector2(15, 0);
+            shootTimer = shootCooldown;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Weapon_4 : Weapon
+{
+    public override void Shoot()
+    {
+        player = GameObject.Find("Player");
+        GameObject b = Instantiate(LaserShoot, player.transform.position, Quaternion.identity);
+        b.GetComponent<Rigidbody2D>().velocity = new Vector2(10, 0);
+
+        if (shootTimer <= 0)
+        {
+            b = Instantiate(crossedfire, player.transform.position, Quaternion.identity);
+            b.GetComponent<Rigidbody2D>().velocity = new Vector2(20, 0);
+            shootTimer = shootCooldown;
+        }
+    }
+}
