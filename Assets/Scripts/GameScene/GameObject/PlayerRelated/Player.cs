@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("-Compponent-")]
     public Rigidbody2D rb;
     public SpriteRenderer sr;
     public WeaponBase weapon;
     public HPBar hPBar;
 
+    [Header("-Player status-")]
     public int hP;
     public float moveSpeed;
+
+    [Header("-Movement Area-")]
+    public Vector2 moveAreaSize = new Vector2(16f, 9f);
 
     private void Start()
     {
@@ -28,26 +33,17 @@ public class Player : MonoBehaviour
     {
         //Player move
         Vector2 move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        if (transform.localPosition.x <= -8)
-        {
-            move.x = Mathf.Max(0, move.x);
-        }
-        else if (transform.localPosition.x >= 8)
-        {
-            move.x = Mathf.Min(0, move.x);
-        }
-
-        if (transform.localPosition.y <= -4.5)
-        {
-            move.y = Mathf.Max(0, move.y);
-        }
-        else if (transform.localPosition.y >= 4.5)
-        {
-            move.y = Mathf.Min(0, move.y);
-        }
-
         rb.velocity = move * moveSpeed;
+
+        Vector2 newPosition = transform.localPosition;
+        float minX = -moveAreaSize.x / 2f;
+        float maxX = moveAreaSize.x / 2f;
+        float minY = -moveAreaSize.y / 2f;
+        float maxY = moveAreaSize.y / 2f;
+
+        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
+        newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
+        transform.localPosition = newPosition;
     }
 
     public void BulletShoot()
@@ -80,5 +76,11 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(new Vector2(0f, 0f), new Vector2(moveAreaSize.x, moveAreaSize.y));
     }
 }

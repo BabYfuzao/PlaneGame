@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class ButtonController : MonoBehaviour
 {
-    //Title Scene
-    public void LevelSelectPanel()
+    //All Scene
+    public void LoadTitleSceneButton()
     {
-        TitleSceneController.instance.LevelSelectPanel();
+        SceneLoader.instance.LoadTitleScene();
+    }
+
+    //Title Scene
+    public void LoadLevelSelectButton()
+    {
+        SceneLoader.instance.LoadLevelSelectScene();
     }
 
     //Game Scene
@@ -19,5 +25,10 @@ public class ButtonController : MonoBehaviour
     public void ReStartGameButton()
     {
         //SceneLoader.instance.LoadGameScene();
+    }
+
+    public void PauseControllButton()
+    {
+        GameController.instance.PauseControl();
     }
 }

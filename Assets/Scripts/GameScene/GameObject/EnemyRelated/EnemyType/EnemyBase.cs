@@ -1,55 +1,36 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
-using PathCreation.Examples;
 using System;
-using System.Globalization;
+using Random = UnityEngine.Random;
 
 public class EnemyBase : MonoBehaviour
 {
+    [Header("-Component-")]
     public SpriteRenderer sr;
 
-    public PathFollower pathFollower;
-
+    [Header("-Enemy type-")]
+    public bool isMob;
+    public bool isElite;
     public bool isBoss;
 
+    [Header("-Enemy status-")]
     public int hP;
-    protected HPBar hPBar;
+    public HPBar hPBar;
 
-    public float delay;
-
-    public TextMeshPro dBHitCountText;
-    public int dBHitCount;
-
-    public bool isRed, isGreen, isBlue;
     public bool isWeak;
-    public bool isBuff;
-    public GameObject rgbBuffObj;
 
+    public bool canMove;
+
+    //Other
     protected Vector3 originalPos;
-
     public event Action<EnemyBase> OnDeath;
 
     protected virtual void Start()
     {
-        hPBar = GetComponentInChildren<HPBar>();
-        pathFollower = GetComponentInChildren<PathFollower>();
-
         hPBar.maxHP = hP;
         hPBar.currentHP = hPBar.maxHP;
         hPBar.UpdateHPBar();
-
-        originalPos = transform.position;
-
-        StartCoroutine(StartMove());
-    }
-
-    public virtual IEnumerator StartMove()
-    {
-        yield return new WaitForSeconds(delay);
-        pathFollower.canMove = true;
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -58,23 +39,6 @@ public class EnemyBase : MonoBehaviour
         {
             SoundManager.instance.PlayEnemyHitSFX();
         }
-    }
-
-    public virtual void HitCountUpdate(int hitCount)
-    {
-        dBHitCount += hitCount;
-
-        if (dBHitCount <= 0)
-        {
-            dBHitCountText.gameObject.SetActive(false);
-        }
-
-        TextHandle();
-    }
-
-    public virtual void TextHandle()
-    {
-        dBHitCountText.text = dBHitCount.ToString();
     }
 
     public virtual void TakeDamage(int damage)
@@ -102,7 +66,7 @@ public class EnemyBase : MonoBehaviour
         if (hP <= 0)
         {
             SoundManager.instance.PlayEnemyDeadSFX();
-            EnemySpawner.instance.EnemyCountUpdate();
+            //EnemySpawner.instance.EnemyCountUpdate();
             OnDeath?.Invoke(this);
             Destroy(gameObject);
         }

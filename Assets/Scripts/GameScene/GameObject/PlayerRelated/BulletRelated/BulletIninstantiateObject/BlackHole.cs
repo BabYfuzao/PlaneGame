@@ -30,7 +30,7 @@ public class BlackHole : MonoBehaviour
             {
                 if (!attractedEnemies.Contains(enemy))
                 {
-                    enemy.pathFollower.canMove = false;
+                    enemy.canMove = false;
                     attractedEnemies.Add(enemy);
                     originalPositions.Add(enemy.transform.position);
                     enemy.OnDeath += HandleEnemyDeath;
@@ -85,7 +85,7 @@ public class BlackHole : MonoBehaviour
         {
             foreach (EnemyBase enemy in attractedEnemies)
             {
-                enemy.pathFollower.canMove = true;
+                enemy.canMove = true;
             }
             attractedEnemies.Clear();
             originalPositions.Clear();

@@ -44,7 +44,8 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1;
         gameStartPanel.SetActive(false);
         isGameInProgress = true;
-        EnemySpawner.instance.EnemySpawn();
+        EnemySpawner.instance.canMobSpawn = true;
+        EnemySpawner.instance.SpawnStart();
         SoundManager.instance.PlayGameBGM(isGameInProgress);
     }
     public void WeaponIconDisplay(int id)
@@ -54,7 +55,7 @@ public class GameController : MonoBehaviour
             weaponIcon[i].SetActive(false);
         }
 
-        weaponIcon[id].SetActive(true);
+        //weaponIcon[id].SetActive(true);
     }
 
     public void PauseControl()

@@ -10,7 +10,13 @@ public class Explosion : MonoBehaviour
     public GameObject explosionPrefab;
     public GameObject enemyHitVFXPrefab;
     public int atk;
+    private DigitalBullet dB;
     private HashSet<EnemyBase> damagedEnemies = new HashSet<EnemyBase>();
+
+    public void Initialize(DigitalBullet bulletInstance)
+    {
+        dB = bulletInstance;
+    }
 
     public void StartExplosion()
     {
@@ -45,40 +51,46 @@ public class Explosion : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "BulletRemover")
-        {
-            Destroy(gameObject);
-        }
-
         if (collision.gameObject.CompareTag("Enemy"))
         {
             SoundManager.instance.PlayExplosionSFX();
-
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
 
             if (!damagedEnemies.Contains(enemy))
             {
                 enemy.TakeDamage(atk);
-                enemy.dBHitCountText.gameObject.SetActive(true);
-                enemy.HitCountUpdate(1);
-                damagedEnemies.Add(enemy);
+
+                HitCount hitCount = collision.GetComponentInChildren<HitCount>();
+
+                if (hitCount == null)
+                {
+                    Vector3 spawnPosition = collision.transform.position;
+                    spawnPosition.y += 0.8f;
+
+                    GameObject hitCountObj = Instantiate(dB.weapon.hitCountPrefab, spawnPosition, Quaternion.identity);
+                    hitCount = hitCountObj.GetComponent<HitCount>();
+                    hitCountObj.transform.SetParent(collision.transform);
+                    hitCount.HitCountUpdate(1);
+                }
+                else
+                {
+                    hitCount.HitCountUpdate(1);
+                }
+
+                CheckEnemyHitCount(enemy, hitCount, collision.gameObject);
 
                 GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
-
-                CheckEnemyHitCount(enemy);
             }
         }
     }
 
-    public void CheckEnemyHitCount(EnemyBase enemy)
+    public void CheckEnemyHitCount(EnemyBase enemy, HitCount hitCount, GameObject enemyObj)
     {
-        int hitCountMax = 8;
-
-        if (enemy.dBHitCount >= hitCountMax)
+        if (hitCount.hitCount >= 8)
         {
             GameObject explosionObj = Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
             explosionObj.GetComponent<Explosion>().StartExplosion();
-            enemy.HitCountUpdate(-hitCountMax);
+            hitCount.HitCountUpdate(-8);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -37,11 +37,6 @@ public class Boss : EnemyBase
         StartCoroutine(BulletShoot());
     }
 
-    public override void HitCountUpdate(int hitCount)
-    {
-        base.HitCountUpdate(hitCount);
-    }
-
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "EnemyRemover")
@@ -52,6 +47,11 @@ public class Boss : EnemyBase
         {
             SoundManager.instance.PlayEnemyHitSFX();
         }
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
     }
 
     public void RandomAction()
@@ -99,23 +99,4 @@ public class Boss : EnemyBase
             RandomAction();
         }
     }
-
-    public override void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-    }
-
-    public override IEnumerator HitEffect()
-    {
-        yield return base.HitEffect();
-    }
-
-    protected override void CheckDead()
-    {
-        if (hP <= 0)
-        {
-            Destroy(gameObject);
-            GameController.instance.GameOver();
-        }
-    }
-}
+}*/

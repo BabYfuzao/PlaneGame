@@ -5,11 +5,18 @@ using UnityEngine;
 
 public class DigitalBullet : PlayerBulletBase
 {
+    public DigitalWeapon weapon;
+
     public GameObject explosionPrefab;
 
     protected override void Start()
     {
         base.Start();
+    }
+
+    public void Initialize(DigitalWeapon weaponInstance)
+    {
+        weapon = weaponInstance;
     }
 
     void Update()
@@ -28,24 +35,36 @@ public class DigitalBullet : PlayerBulletBase
         {
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
             enemy.TakeDamage(atk);
-            enemy.dBHitCountText.gameObject.SetActive(true);
-            enemy.HitCountUpdate(1);
-            CheckEnemyHitCount(enemy, collision.gameObject);
+
+            HitCount hitCount = collision.GetComponentInChildren<HitCount>();
+
+            if (hitCount == null)
+            {
+                Vector3 spawnPosition = collision.transform.position;
+                spawnPosition.y += 0.8f;
+
+                GameObject hitCountObj = Instantiate(weapon.hitCountPrefab, spawnPosition, Quaternion.identity);
+                hitCount = hitCountObj.GetComponent<HitCount>();
+                hitCountObj.transform.SetParent(collision.transform);
+            }
+            hitCount.HitCountUpdate(1);
+
+            CheckEnemyHitCount(enemy, hitCount, collision.gameObject);
 
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
 
-    public virtual void CheckEnemyHitCount(EnemyBase enemy, GameObject enemyObj)
+    public void CheckEnemyHitCount(EnemyBase enemy, HitCount hitCount , GameObject enemyObj)
     {
-        int hitCountMax = 8;
-
-        if (enemy.dBHitCount >= hitCountMax)
+        if (hitCount.hitCount >= 8)
         {
             GameObject explosionObj = Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
+            Explosion explosion = explosionObj.GetComponent<Explosion>();
+            explosion.Initialize(this);
             explosionObj.GetComponent<Explosion>().StartExplosion();
-            enemy.HitCountUpdate(-hitCountMax);
+            hitCount.HitCountUpdate(-8);
         }
     }
 }

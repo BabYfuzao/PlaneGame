@@ -105,6 +105,7 @@ MonoBehaviour:
   moveSpeed: 6
   enemyHitVFXPrefab: {fileID: 4083882934981412272, guid: 18c94d37862415e44bd6e1bd7c3c0600, type: 3}
   sr: {fileID: 5902283147618752702}
+  tr: {fileID: -3887973257698259976}
 --- !u!58 &7237879138377108271
 CircleCollider2D:
   m_ObjectHideFlags: 0

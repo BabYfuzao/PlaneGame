@@ -5,7 +5,9 @@ using UnityEngine;
 public class RGBBullet : PlayerBulletBase
 {
     public SpriteRenderer sr;
-    private TrailRenderer trailRenderer;
+    public TrailRenderer tr;
+
+    private RGBWeapon weapon;
 
     public enum RGBBulletType
     {
@@ -19,11 +21,9 @@ public class RGBBullet : PlayerBulletBase
     protected override void Start()
     {
         base.Start();
-        trailRenderer = GetComponent<TrailRenderer>();
 
         bulletType = (RGBBulletType)Random.Range(0, System.Enum.GetValues(typeof(RGBBulletType)).Length);
-        SetBulletSprite(bulletType);
-        SetTrailColor(bulletType);
+        SetBullet(bulletType);
 
         float randomScale = Random.Range(0.8f, 1.2f);
         transform.localScale = new Vector3(randomScale, randomScale, 1);
@@ -32,42 +32,29 @@ public class RGBBullet : PlayerBulletBase
         transform.rotation = Quaternion.Euler(0, 0, randomRotation);
     }
 
-    private void SetTrailColor(RGBBulletType type)
+    public void Initialize(RGBWeapon weaponInstance)
     {
-        if (trailRenderer != null)
-        {
-            switch (type)
-            {
-                case RGBBulletType.Red:
-                    trailRenderer.startColor = Color.red;
-                    trailRenderer.endColor = new Color(1, 0, 0, 0);
-                    break;
-                case RGBBulletType.Green:
-                    trailRenderer.startColor = Color.green;
-                    trailRenderer.endColor = new Color(0, 1, 0, 0);
-                    break;
-                case RGBBulletType.Blue:
-                    trailRenderer.startColor = Color.blue;
-                    trailRenderer.endColor = new Color(0, 0, 1, 0);
-                    break;
-                default:
-                    break;
-            }
-        }
+        weapon = weaponInstance;
     }
 
-    private void SetBulletSprite(RGBBulletType type)
+    private void SetBullet(RGBBulletType type)
     {
         switch (type)
         {
             case RGBBulletType.Red:
                 sr.color = Color.red;
+                tr.startColor = Color.red;
+                tr.endColor = new Color(1, 0, 0, 0);
                 break;
             case RGBBulletType.Green:
                 sr.color = Color.green;
+                tr.startColor = Color.green;
+                tr.endColor = new Color(0, 1, 0, 0);
                 break;
             case RGBBulletType.Blue:
                 sr.color = Color.blue;
+                tr.startColor = Color.blue;
+                tr.endColor = new Color(0, 0, 1, 0);
                 break;
             default:
                 break;
@@ -86,11 +73,20 @@ public class RGBBullet : PlayerBulletBase
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
             enemy.TakeDamage(atk);
 
-            if (!enemy.isBuff)
+            RGBBuff rgbBuff = collision.GetComponentInChildren<RGBBuff>();
+
+            if (rgbBuff == null)
             {
-                RGBWeapon weapon = FindObjectOfType<RGBWeapon>();
-                weapon.SetEnemyBuff(enemy, bulletType);
+                Vector3 spawnPosition = collision.transform.position;
+                spawnPosition.y += 0.8f;
+
+                GameObject rgbBuffObj = Instantiate(weapon.rgbBuffPrefab, spawnPosition, Quaternion.identity);
+                rgbBuff = rgbBuffObj.GetComponent<RGBBuff>();
+                rgbBuff.Initialize(enemy);
+
+                rgbBuffObj.transform.SetParent(collision.transform);
             }
+            rgbBuff.SetBuff(bulletType);
 
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
             ParticleSystem.MainModule data = enemyHitVFX.GetComponent<ParticleSystem>().main;
