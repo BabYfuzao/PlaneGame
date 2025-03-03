@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BGScrolling : MonoBehaviour
 {
+    public bool canMove;
     public float speed;
 
     [SerializeField]
@@ -11,6 +12,9 @@ public class BGScrolling : MonoBehaviour
 
     private void Update()
     {
-        sr.material.mainTextureOffset += new Vector2(speed * Time.deltaTime, 0);
+        if (canMove)
+        {
+            sr.material.mainTextureOffset += new Vector2(speed * Time.deltaTime, 0);
+        }
     }
 }
