@@ -7,10 +7,10 @@ public class BGScrolling : MonoBehaviour
     public float speed;
 
     [SerializeField]
-    private Renderer bgRenderer;
+    private SpriteRenderer sr;
 
     private void Update()
     {
-        bgRenderer.material.mainTextureOffset += new Vector2(speed * Time.deltaTime, 0);
+        sr.material.mainTextureOffset += new Vector2(speed * Time.deltaTime, 0);
     }
 }
