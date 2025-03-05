@@ -68,6 +68,25 @@ public class EnemySpawner : MonoBehaviour
         return transform.position + new Vector3(x, y, 0);
     }
 
+    public void MobEnemyKillCountUpdate(int count)
+    {
+        mobEnemyKillCount += count;
+        if (canWaveSpawn())
+        {
+            EnemyWaveSpawn();
+        }
+    }
+
+    public bool canWaveSpawn()
+    {
+        if (currentWave < enemyWaves.Length)
+        {
+            Debug.Log("aaa");
+            return mobEnemyKillCount >= enemyWaves[currentWave].needKillCount;
+        }
+        return false;
+    }
+
     public void EnemyWaveSpawn()
     {
         currentWave++;
@@ -81,16 +100,6 @@ public class EnemySpawner : MonoBehaviour
         {
             enemyWaves[currentWave - 1].enemyPrefabs[i].SetActive(true);
         }
-    }
-
-    public void EnemyCountUpdate()
-    {
-        CheckAllEnemyDefeated();
-    }
-
-    public void CheckAllEnemyDefeated()
-    {
-        EnemyWaveSpawn();
     }
 
     private void OnDrawGizmosSelected()

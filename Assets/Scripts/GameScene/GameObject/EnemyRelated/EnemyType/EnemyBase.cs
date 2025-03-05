@@ -66,7 +66,12 @@ public class EnemyBase : MonoBehaviour
         if (hP <= 0)
         {
             SoundManager.instance.PlayEnemyDeadSFX();
-            //EnemySpawner.instance.EnemyCountUpdate();
+
+            if (isMob)
+            {
+                EnemySpawner.instance.MobEnemyKillCountUpdate(1);
+            }
+
             OnDeath?.Invoke(this);
             Destroy(gameObject);
         }

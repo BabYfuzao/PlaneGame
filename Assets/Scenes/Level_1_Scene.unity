@@ -1748,6 +1748,7 @@ RectTransform:
   - {fileID: 1419663076}
   - {fileID: 1395709243}
   - {fileID: 581372367}
+  - {fileID: 1067200414}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1756,6 +1757,82 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920.0001, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1067200413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1067200414}
+  - component: {fileID: 1067200416}
+  - component: {fileID: 1067200415}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1067200414
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067200413}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1062420357}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 68.33, y: 391.06}
+  m_SizeDelta: {x: -979.83, y: -782.11}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1067200415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067200413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1067200416
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067200413}
+  m_CullTransparentMesh: 1
 --- !u!1 &1089354503
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,10 +2642,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaves:
-  - enemyPrefabs: []
-    needKillCount: 0
+  - enemyPrefabs:
+    - {fileID: 1150768242}
+    needKillCount: 3
     waveIndex: 1
-    isBossWave: 0
+    isBossWave: 1
   mobEnemyPrefab: {fileID: 2945781760964640488, guid: 616aad8dfd2c6d4409eb1252a28ee8b8, type: 3}
   spawnAreaSize: {x: 2, y: 9}
   spawnCD: 8
@@ -3234,9 +3312,11 @@ MonoBehaviour:
   gameOverPanel: {fileID: 2050315613}
   isBlackHoleSpawn: 0
   level: 0
+  timerSecond: 0
   isGameInProgress: 0
   isGamePause: 0
   isGameOver: 0
+  timerText: {fileID: 0}
 --- !u!4 &1952658290
 Transform:
   m_ObjectHideFlags: 0
@@ -3887,6 +3967,10 @@ PrefabInstance:
     - target: {fileID: 1960053924399038009, guid: 046c79c400c96944b836e13d0e54386c, type: 3}
       propertyPath: m_Name
       value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960053924399038009, guid: 046c79c400c96944b836e13d0e54386c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3221910929867270621, guid: 046c79c400c96944b836e13d0e54386c, type: 3}
       propertyPath: m_RootOrder

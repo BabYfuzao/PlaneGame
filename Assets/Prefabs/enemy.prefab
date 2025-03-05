@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 2945781760964640493}
-  isMob: 0
+  isMob: 1
   isElite: 0
   isBoss: 0
   hP: 10

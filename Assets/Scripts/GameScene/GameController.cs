@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -20,12 +21,16 @@ public class GameController : MonoBehaviour
     [Header("-Function-")]
     public bool isBlackHoleSpawn;
 
-    [Header("Game Status")]
+    [Header("-Game Status-")]
     public int level;
+    public int timerSecond;
 
     public bool isGameInProgress = false;
     public bool isGamePause = false;
     public bool isGameOver = false;
+
+    [Header("-UI Text-")]
+    public TextMeshProUGUI timerText;
 
     private void Awake()
     {
@@ -44,10 +49,29 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1;
         gameStartPanel.SetActive(false);
         isGameInProgress = true;
+
+        StartCoroutine(TimerUpdate());
+
         EnemySpawner.instance.canMobSpawn = true;
         EnemySpawner.instance.SpawnStart();
         SoundManager.instance.PlayGameBGM(isGameInProgress);
     }
+
+    public void TextHandleUpdate()
+    {
+        timerText.text = timerSecond.ToString();
+    }
+
+    public IEnumerator TimerUpdate()
+    {
+        while (isGameInProgress)
+        {
+            timerSecond++;
+            yield return new WaitForSeconds(1);
+            TextHandleUpdate();
+        }
+    }
+
     public void WeaponIconDisplay(int id)
     {
         for (int i = 0; i < weaponIcon.Length; i++)

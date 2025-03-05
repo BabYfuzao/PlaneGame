@@ -8,10 +8,10 @@ using TMPro;
 public class MobEnemy : EnemyBase
 {
     [Header("-Random Movement Settings-")]
-    [SerializeField] private Vector2 moveAreaSize;
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float maxMoveDistance;
-    [SerializeField] private float minMoveDistance;
+    public Vector2 moveAreaSize;
+    public float moveSpeed;
+    public float maxMoveDistance;
+    public float minMoveDistance;
 
     private Vector2 targetPosition;
 
