@@ -32,11 +32,6 @@ public class RGBBullet : PlayerBulletBase
         transform.rotation = Quaternion.Euler(0, 0, randomRotation);
     }
 
-    public void Initialize(RGBWeapon weaponInstance)
-    {
-        weapon = weaponInstance;
-    }
-
     private void SetBullet(RGBBulletType type)
     {
         switch (type)

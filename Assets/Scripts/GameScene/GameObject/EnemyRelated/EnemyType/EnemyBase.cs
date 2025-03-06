@@ -16,7 +16,7 @@ public class EnemyBase : MonoBehaviour
 
     [Header("-Enemy status-")]
     public int hP;
-    public HPBar hPBar;
+    public SmoothBar hPBar;
 
     public bool isWeak;
 
@@ -28,9 +28,9 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        hPBar.maxHP = hP;
-        hPBar.currentHP = hPBar.maxHP;
-        hPBar.UpdateHPBar();
+        hPBar.maxValue = hP;
+        hPBar.currentValue = hPBar.maxValue;
+        hPBar.UpdateBar();
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -49,7 +49,7 @@ public class EnemyBase : MonoBehaviour
         }
 
         hP -= damage;
-        hPBar.SetHPBar(-damage);
+        hPBar.SetBar(-damage);
         CheckDead();
         StartCoroutine(HitEffect());
     }

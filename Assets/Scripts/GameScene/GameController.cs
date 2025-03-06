@@ -66,8 +66,8 @@ public class GameController : MonoBehaviour
     {
         while (isGameInProgress)
         {
-            timerSecond++;
             yield return new WaitForSeconds(1);
+            timerSecond++;
             TextHandleUpdate();
         }
     }

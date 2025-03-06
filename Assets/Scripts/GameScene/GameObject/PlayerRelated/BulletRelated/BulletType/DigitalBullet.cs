@@ -14,11 +14,6 @@ public class DigitalBullet : PlayerBulletBase
         base.Start();
     }
 
-    public void Initialize(DigitalWeapon weaponInstance)
-    {
-        weapon = weaponInstance;
-    }
-
     void Update()
     {
         transform.Rotate(Vector3.forward, 1000f * Time.deltaTime);

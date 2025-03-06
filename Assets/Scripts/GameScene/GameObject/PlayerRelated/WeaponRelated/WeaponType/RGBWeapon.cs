@@ -6,19 +6,13 @@ public class RGBWeapon : WeaponBase
 {
     public GameObject rgbBuffPrefab;
 
+    protected override void Start()
+    {
+        base.Start();
+    }
+
     public override IEnumerator BulletShoot()
     {
-        if (canShoot)
-        {
-            SoundManager.instance.PlayRGBBulletShootSFX();
-
-            GameObject bulletObj = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            RGBBullet bullet = bulletObj.GetComponent<RGBBullet>();
-            bullet.Initialize(this);
-
-            canShoot = false;
-            yield return new WaitForSeconds(shootCD);
-            canShoot = true;
-        }
+        yield return base.BulletShoot();
     }
 }

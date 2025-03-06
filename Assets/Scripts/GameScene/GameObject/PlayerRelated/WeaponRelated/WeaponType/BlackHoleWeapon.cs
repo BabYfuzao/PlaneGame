@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class BlackHoleWeapon : WeaponBase
 {
+    protected override void Start()
+    {
+        base.Start();
+    }
+
     public override IEnumerator BulletShoot()
     {
-        if (canShoot)
-        {
-            SoundManager.instance.PlayBHBulletShootSFX();
-            GameObject bulletObj = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            canShoot = false;
-            yield return new WaitForSeconds(shootCD);
-            canShoot = true;
-        }
+        yield return base.StartCoroutine(BulletShoot());
     }
 }

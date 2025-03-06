@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb27aa4d4d213240b693f242704b22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootCD: 0.5
+  energyBar: {fileID: 0}
   bulletPrefab: {fileID: 1460164694795674922, guid: 8e09bec1e439bb44d94abc2c90d1e076, type: 3}
+  energy: 0
+  energyMax: 0
+  shootCD: 0.5
   weaponID: 0

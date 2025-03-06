@@ -65,6 +65,10 @@ public class MobEnemy : EnemyBase
         {
             Destroy(gameObject);
         }
+        else if (collision.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<Player>().TakeDamage(1);
+        }
     }
 
     public override void TakeDamage(int damage)

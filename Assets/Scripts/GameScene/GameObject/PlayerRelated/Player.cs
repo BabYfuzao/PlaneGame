@@ -8,9 +8,10 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     public SpriteRenderer sr;
     public WeaponBase weapon;
-    public HPBar hPBar;
+    public SmoothBar hPBar;
 
     [Header("-Player status-")]
+    public int hPMax;
     public int hP;
     public float moveSpeed;
 
@@ -19,9 +20,10 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        hPBar.maxHP = hP;
-        hPBar.currentHP = hPBar.maxHP;
-        hPBar.UpdateHPBar();
+        hP = hPMax;
+        hPBar.maxValue = hPMax;
+        hPBar.currentValue = hPBar.maxValue;
+        hPBar.UpdateBar();
     }
     void Update()
     {
@@ -57,8 +59,9 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        EnergyManager.instance.ReloadEnergy(weapon, 1);
         hP -= damage;
-        hPBar.SetHPBar(-damage);
+        hPBar.SetBar(-damage);
         StartCoroutine(HitEffect());
         CheckDead();
     }
