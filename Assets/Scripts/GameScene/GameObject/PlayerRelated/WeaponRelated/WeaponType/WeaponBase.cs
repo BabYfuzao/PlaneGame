@@ -29,12 +29,15 @@ public class WeaponBase : MonoBehaviour
         if (canShoot)
         {
             GameObject bulletObj = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            PlayerBulletBase bullet = bulletObj.GetComponent<PlayerBulletBase>();
-            bullet.Initialize(this);
 
             canShoot = false;
             yield return new WaitForSeconds(shootCD);
             canShoot = true;
         }
+    }
+
+    public virtual void Ultimate()
+    {
+
     }
 }

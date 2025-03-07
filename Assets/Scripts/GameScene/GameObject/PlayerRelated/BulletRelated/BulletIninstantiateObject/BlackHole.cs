@@ -7,6 +7,8 @@ public class BlackHole : MonoBehaviour
 {
     public SpriteRenderer sr;
 
+    private BlackHoleWeapon weapon;
+
     private List<EnemyBase> attractedEnemies = new List<EnemyBase>();
     private List<Vector2> originalPositions = new List<Vector2>();
 
@@ -18,6 +20,11 @@ public class BlackHole : MonoBehaviour
     void Update()
     {
         transform.Rotate(Vector3.forward, 100f * Time.deltaTime);
+    }
+
+    public void Initialize(BlackHoleWeapon weaponInstance)
+    {
+        weapon = weaponInstance;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -90,7 +97,7 @@ public class BlackHole : MonoBehaviour
             attractedEnemies.Clear();
             originalPositions.Clear();
 
-            GameController.instance.isBlackHoleSpawn = false;
+            weapon.isBlackHoleSpawn = false;
             Destroy(gameObject);
         });
     }

@@ -83,10 +83,17 @@ public class RGBBullet : PlayerBulletBase
             }
             rgbBuff.SetBuff(bulletType);
 
+            EnergyManager.instance.ReloadEnergy(weapon, 1);
+
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
             ParticleSystem.MainModule data = enemyHitVFX.GetComponent<ParticleSystem>().main;
             data.startColor = sr.color;
             Destroy(gameObject);
         }
+    }
+
+    public void Initialize(RGBWeapon weaponInstance)
+    {
+        weapon = weaponInstance;
     }
 }

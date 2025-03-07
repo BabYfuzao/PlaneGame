@@ -18,9 +18,6 @@ public class GameController : MonoBehaviour
 
     public GameObject gameOverPanel;
 
-    [Header("-Function-")]
-    public bool isBlackHoleSpawn;
-
     [Header("-Game Status-")]
     public int level;
     public int timerSecond;

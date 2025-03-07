@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DigitalBullet : PlayerBulletBase
 {
+    [HideInInspector]
     public DigitalWeapon weapon;
 
     public GameObject explosionPrefab;
@@ -46,9 +47,16 @@ public class DigitalBullet : PlayerBulletBase
 
             CheckEnemyHitCount(enemy, hitCount, collision.gameObject);
 
+            EnergyManager.instance.ReloadEnergy(weapon, 1);
+
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    public void Initialize(DigitalWeapon weaponInstance)
+    {
+        weapon = weaponInstance;
     }
 
     public void CheckEnemyHitCount(EnemyBase enemy, HitCount hitCount , GameObject enemyObj)

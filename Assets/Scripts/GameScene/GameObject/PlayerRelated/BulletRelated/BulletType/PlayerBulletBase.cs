@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerBulletBase : MonoBehaviour
 {
     public Rigidbody2D rb;
-    private WeaponBase weapon;
 
     public int atk;
     public float moveSpeed;
@@ -30,13 +29,9 @@ public class PlayerBulletBase : MonoBehaviour
         {
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
             enemy.TakeDamage(atk);
+
             GameObject enemyHitVFX = Instantiate(enemyHitVFXPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-    }
-
-    public void Initialize(WeaponBase weaponInstance)
-    {
-        weapon = weaponInstance;
     }
 }

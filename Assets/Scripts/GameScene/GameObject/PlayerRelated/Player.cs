@@ -23,12 +23,12 @@ public class Player : MonoBehaviour
         hP = hPMax;
         hPBar.maxValue = hPMax;
         hPBar.currentValue = hPBar.maxValue;
-        hPBar.UpdateBar();
+        hPBar.SetBar(hP);
     }
     void Update()
     {
         PlayerMove();
-        BulletShoot();
+        PlayerAttack();
     }
 
     public void PlayerMove()
@@ -48,12 +48,22 @@ public class Player : MonoBehaviour
         transform.localPosition = newPosition;
     }
 
-    public void BulletShoot()
+    public void PlayerAttack()
     {
         //Bullet shoot
         if (Input.GetKey(KeyCode.Space))
         {
             StartCoroutine(weapon.BulletShoot());
+        }
+
+        //Ult
+        if (Input.GetKey(KeyCode.J))
+        {
+            if (EnergyManager.instance.canUlt)
+            {
+                weapon.Ultimate();
+                EnergyManager.instance.ResetEnergy();
+            }
         }
     }
 
@@ -61,7 +71,7 @@ public class Player : MonoBehaviour
     {
         EnergyManager.instance.ReloadEnergy(weapon, 1);
         hP -= damage;
-        hPBar.SetBar(-damage);
+        hPBar.SetBar(hP);
         StartCoroutine(HitEffect());
         CheckDead();
     }

@@ -9,7 +9,9 @@ public class EnergyManager : MonoBehaviour
     public SmoothBar energyBar;
 
     public int energy;
+
     public bool canUlt = false;
+    public GameObject ultIcon;
 
     private void Awake()
     {
@@ -18,26 +20,37 @@ public class EnergyManager : MonoBehaviour
 
     public void SetDefault(int energyMax)
     {
+        energy = 0;
         energyBar.maxValue = energyMax;
-        energyBar.UpdateBar();
+        energyBar.SetBar(energy);
     }
 
-    public virtual void ReloadEnergy(WeaponBase weapon, int amount)
+    public void ReloadEnergy(WeaponBase weapon, int amount)
     {
         if (!canUlt)
         {
             energy += amount;
-            energyBar.SetBar(amount);
+            energyBar.SetBar(energy);
             CheckEnergyForUltimate(weapon);
         }
     }
 
-    public virtual void CheckEnergyForUltimate(WeaponBase weapon)
+    public void CheckEnergyForUltimate(WeaponBase weapon)
     {
         if (energy >= weapon.energyMax)
         {
             energy = weapon.energyMax;
             canUlt = true;
+
+            ultIcon.GetComponent<SpriteRenderer>().color = Color.red;
         }
+    }
+
+    public void ResetEnergy()
+    {
+        ultIcon.GetComponent<SpriteRenderer>().color = Color.white;
+        canUlt = false;
+        energy = 0;
+        energyBar.SetBar(energy);
     }
 }

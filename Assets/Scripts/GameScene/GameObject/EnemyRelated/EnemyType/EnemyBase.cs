@@ -30,7 +30,7 @@ public class EnemyBase : MonoBehaviour
     {
         hPBar.maxValue = hP;
         hPBar.currentValue = hPBar.maxValue;
-        hPBar.UpdateBar();
+        hPBar.SetBar(hP);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -49,7 +49,7 @@ public class EnemyBase : MonoBehaviour
         }
 
         hP -= damage;
-        hPBar.SetBar(-damage);
+        hPBar.SetBar(hP);
         CheckDead();
         StartCoroutine(HitEffect());
     }

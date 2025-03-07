@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class SmoothBar : MonoBehaviour
@@ -11,36 +10,36 @@ public class SmoothBar : MonoBehaviour
     public Color fullValueColor;
     public Color zeroValueColor;
 
-    public void SetBar(int amount)
+    public void SetBar(float targetAmount)
     {
-        StartCoroutine(SetBarSmooth(amount));
+        StartCoroutine(SetBarSmooth(targetAmount));
     }
 
-    private IEnumerator SetBarSmooth(int amount)
+    private IEnumerator SetBarSmooth(float targetAmount)
     {
-        if (currentValue <= maxValue)
+        if (maxValue > 0)
         {
-            float targetValue = currentValue + amount;
-            float initialValue = currentValue;
             float duration = 0.1f;
             float elapsedTime = 0f;
+
+            float startingValue = currentValue;
 
             while (elapsedTime < duration)
             {
                 elapsedTime += Time.deltaTime;
-                currentValue = Mathf.Lerp(initialValue, targetValue, elapsedTime / duration);
+                currentValue = Mathf.Lerp(startingValue, targetAmount, elapsedTime / duration);
                 UpdateBar();
                 yield return null;
             }
 
-            currentValue = targetValue;
+            currentValue = targetAmount;
             UpdateBar();
         }
     }
 
     public void UpdateBar()
     {
-        if (currentValue >= 0)
+        if (currentValue >= 0 && currentValue <= maxValue)
         {
             float fillAmount = currentValue / maxValue;
             SpriteRenderer fillSpriteRenderer = fill.GetComponent<SpriteRenderer>();

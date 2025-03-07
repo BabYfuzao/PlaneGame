@@ -13,6 +13,15 @@ public class DigitalWeapon : WeaponBase
 
     public override IEnumerator BulletShoot()
     {
-        yield return base.BulletShoot();
+        if (canShoot)
+        {
+            GameObject bulletObj = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            DigitalBullet bullet = bulletObj.GetComponent<DigitalBullet>();
+            bullet.Initialize(this);
+
+            canShoot = false;
+            yield return new WaitForSeconds(shootCD);
+            canShoot = true;
+        }
     }
 }

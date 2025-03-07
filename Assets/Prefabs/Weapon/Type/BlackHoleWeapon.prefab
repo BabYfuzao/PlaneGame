@@ -44,6 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a40fc28eacd65499e0d29dccf7a433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootCD: 1.5
+  energyBar: {fileID: 0}
   bulletPrefab: {fileID: 5209546865113144775, guid: 96fcc873fd35eb34baec051cbf1a6520, type: 3}
+  energyMax: 10
+  shootCD: 1.5
   weaponID: 2
+  blackHolePrefab: {fileID: 4529783081265197209, guid: 7c1e686a2e53bf14b81a8b154a0ce9fa, type: 3}
+  blackHoleDurationTime: 2
+  isBlackHoleSpawn: 0
