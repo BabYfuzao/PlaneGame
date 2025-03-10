@@ -9,9 +9,11 @@ using UnityEngine.TestTools;
 
 public class BossEnemy : EnemyBase
 {
-    public Transform startPos;
-    public Transform move1Pos;
-    public Transform move2Pos;
+    public SmoothBar hPBar;
+
+    [SerializeField] private Vector2 startPos = Vector2.zero;
+    [SerializeField] private Vector2 move1Pos = new Vector2(-5f, 0f);
+    [SerializeField] private Vector2 move2Pos = new Vector2(5f, 0f);
 
     public GameObject bulletPrefab;
     public float shootCD;
@@ -20,16 +22,19 @@ public class BossEnemy : EnemyBase
     public float moveSpeed;
     public float moveRange;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
+        hPBar.maxValue = hP;
+        hPBar.currentValue = hPBar.maxValue;
+        hPBar.SetBar(hP);
+
         canMove = false;
         StartCoroutine(BossAppear());
     }
 
     public IEnumerator BossAppear()
     {
-        yield return transform.DOMove(startPos.position, moveSpeed).SetEase(Ease.InOutSine).WaitForCompletion();
+        yield return transform.DOMove(startPos, moveSpeed).SetEase(Ease.InOutSine).WaitForCompletion();
 
         canMove = true;
         canAttack = true;
@@ -41,9 +46,9 @@ public class BossEnemy : EnemyBase
     {
         while (canMove)
         {
-            yield return transform.DOMove(move1Pos.position, moveSpeed).SetEase(Ease.Linear).WaitForCompletion();
+            yield return transform.DOMove(move1Pos, moveSpeed).SetEase(Ease.Linear).WaitForCompletion();
 
-            yield return transform.DOMove(move2Pos.position, moveSpeed).SetEase(Ease.Linear).WaitForCompletion();
+            yield return transform.DOMove(move2Pos, moveSpeed).SetEase(Ease.Linear).WaitForCompletion();
         }
     }
 
@@ -57,7 +62,15 @@ public class BossEnemy : EnemyBase
 
     public override void TakeDamage(int damage)
     {
-        base.TakeDamage(damage);
+        if (isWeak)
+        {
+            damage += 1;
+        }
+
+        hP -= damage;
+        hPBar.SetBar(hP);
+        CheckDead();
+        StartCoroutine(HitEffect());
     }
 
     public IEnumerator BulletShoot()

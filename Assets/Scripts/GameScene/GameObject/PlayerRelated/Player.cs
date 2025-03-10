@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     [Header("-Compponent-")]
     public Rigidbody2D rb;
     public SpriteRenderer sr;
+    public Animator animator;
+
     public WeaponBase weapon;
     public SmoothBar hPBar;
 
@@ -14,6 +16,8 @@ public class Player : MonoBehaviour
     public int hPMax;
     public int hP;
     public float moveSpeed;
+
+    public Color defaultColor;
 
     [Header("-Movement Area-")]
     public Vector2 moveAreaSize = new Vector2(16f, 9f);
@@ -24,6 +28,8 @@ public class Player : MonoBehaviour
         hPBar.maxValue = hPMax;
         hPBar.currentValue = hPBar.maxValue;
         hPBar.SetBar(hP);
+
+        defaultColor = sr.color;
     }
     void Update()
     {
@@ -46,6 +52,12 @@ public class Player : MonoBehaviour
         newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
         newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
         transform.localPosition = newPosition;
+
+        bool isUp = (move.x > 0 && move.y == 0) ||  move.y > 0;
+        bool isDown = move.y < 0;
+
+        animator.SetBool("isUp", isUp);
+        animator.SetBool("isDown", isDown);
     }
 
     public void PlayerAttack()
@@ -78,17 +90,27 @@ public class Player : MonoBehaviour
 
     public IEnumerator HitEffect()
     {
-        sr.color = Color.gray;
+        Color currentColor = sr.color;
+
+        Color darkerColor = currentColor * 0.5f;
+        sr.color = darkerColor;
+
         yield return new WaitForSeconds(0.2f);
-        sr.color = Color.white;
+        sr.color = defaultColor;
     }
 
     public void CheckDead()
     {
         if (hP <= 0)
         {
-            Destroy(gameObject);
+            animator.SetBool("isDead", true);
+
         }
+    }
+
+    public void PlayerDestroy()
+    {
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()

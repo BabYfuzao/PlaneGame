@@ -15,9 +15,8 @@ public class MobEnemy : EnemyBase
 
     private Vector2 targetPosition;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
         targetPosition = transform.position;
     }
 

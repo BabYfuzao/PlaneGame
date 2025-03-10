@@ -8,13 +8,13 @@ public class BGScrolling : MonoBehaviour
     public float speed;
 
     [SerializeField]
-    private SpriteRenderer sr;
+    private Renderer r;
 
     private void Update()
     {
         if (canMove)
         {
-            sr.material.mainTextureOffset += new Vector2(speed * Time.deltaTime, 0);
+            r.material.mainTextureOffset += new Vector2(speed * Time.deltaTime, 0);
         }
     }
 }
