@@ -11,13 +11,20 @@ public class EnemyWave
     public bool isBossWave;
 }
 
+[System.Serializable]
+public class MobEnemyGroup
+{
+    public GameObject mobEnemyPrefab;
+    public float chance;
+}
+
 public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner instance;
 
     [Header("-Enemy Prefab-")]
     public EnemyWave[] enemyWaves;
-    public GameObject mobEnemyPrefab;
+    public MobEnemyGroup[] mobEnemys;
 
     [Header("-Mob Enemy Spawn Area-")]
     public Vector2 spawnAreaSize;
@@ -50,12 +57,30 @@ public class EnemySpawner : MonoBehaviour
         while (canMobSpawn)
         {
             Vector2 spawnPosition = GetRandomSpawnInArea();
-            Instantiate(mobEnemyPrefab, spawnPosition, Quaternion.identity);
+
+            RandomMobEnemy(spawnPosition);
+
             yield return new WaitForSeconds(spawnCD);
 
             if (spawnCD >= minSpawnCD)
             {
                 spawnCD -= reducedSpawnCD;
+            }
+        }
+    }
+
+    public void RandomMobEnemy(Vector3 spawnPosition)
+    {
+        float randomNum = Random.Range(0f, 1f);
+        float cumulativeChance = 0f;
+
+        foreach (var mob in mobEnemys)
+        {
+            cumulativeChance += mob.chance;
+            if (randomNum <= cumulativeChance)
+            {
+                Instantiate(mob.mobEnemyPrefab, spawnPosition, Quaternion.identity);
+                break;
             }
         }
     }

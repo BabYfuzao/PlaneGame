@@ -13,14 +13,15 @@ public class MobEnemy : EnemyBase
     public float maxMoveDistance;
     public float minMoveDistance;
 
-    private Vector2 targetPosition;
+    protected Vector2 targetPosition;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         targetPosition = transform.position;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (canMove)
         {
@@ -32,7 +33,7 @@ public class MobEnemy : EnemyBase
         }
     }
 
-    private Vector2 GenerateNewTarget()
+    protected Vector2 GenerateNewTarget()
     {
         Vector2 currentPos = transform.position;
         Vector2 leftDirection = Vector2.left;
@@ -75,7 +76,7 @@ public class MobEnemy : EnemyBase
         base.TakeDamage(damage);
     }
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(new Vector2(0f, 0f), moveAreaSize);

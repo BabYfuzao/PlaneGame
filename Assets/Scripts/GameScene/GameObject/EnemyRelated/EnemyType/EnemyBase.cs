@@ -23,7 +23,13 @@ public class EnemyBase : MonoBehaviour
 
     //Other
     protected Vector3 originalPos;
+    public Color defaultColor;
     public event Action<EnemyBase> OnDeath;
+
+    protected virtual void Start()
+    {
+        defaultColor = sr.color;
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,14 +48,6 @@ public class EnemyBase : MonoBehaviour
 
         hP -= damage;
         CheckDead();
-        StartCoroutine(HitEffect());
-    }
-
-    public virtual IEnumerator HitEffect()
-    {
-        sr.color = Color.gray;
-        yield return new WaitForSeconds(0.2f);
-        sr.color = Color.white;
     }
 
     protected virtual void CheckDead()

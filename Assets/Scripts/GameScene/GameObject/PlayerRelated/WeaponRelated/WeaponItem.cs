@@ -14,6 +14,7 @@ public class WeaponItem : MonoBehaviour
             Player player = collision.gameObject.GetComponent<Player>();
             Destroy(player.weapon.gameObject);
             player.weapon = weapon.GetComponent<WeaponBase>();
+            EnergyManager.instance.ResetEnergy();
             EnergyManager.instance.SetDefault(player.weapon.energyMax);
             //GameController.instance.WeaponIconDisplay(player.weapon.weaponID);
             Destroy(gameObject);

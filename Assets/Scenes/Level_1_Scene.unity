@@ -1484,7 +1484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -700, y: 350}
+  m_AnchoredPosition: {x: -778, y: -386}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &687850347
@@ -1629,13 +1629,14 @@ GameObject:
   - component: {fileID: 706852307}
   - component: {fileID: 706852306}
   - component: {fileID: 706852305}
+  - component: {fileID: 706852308}
   m_Layer: 0
   m_Name: FungiKing
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &706852302
 Animator:
   serializedVersion: 5
@@ -1719,8 +1720,7 @@ Transform:
   m_LocalPosition: {x: 12, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 514477242}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1739,15 +1739,19 @@ MonoBehaviour:
   sr: {fileID: 706852303}
   isMob: 0
   isElite: 0
-  isBoss: 0
+  isBoss: 1
   hP: 100
   isWeak: 0
   canMove: 0
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
+  anim: {fileID: 706852302}
   hPBar: {fileID: 514477241}
+  shadowEffect: {fileID: 706852308}
   startPos: {x: 6, y: 0}
   move1Pos: {x: 6, y: 2}
   move2Pos: {x: 6, y: -2}
-  bulletPrefab: {fileID: 0}
+  mobEnemyPrefab: {fileID: 6158568886404889875, guid: 0a4c14256e813bf4ba7fa3803c37654a, type: 3}
+  bulletPrefab: {fileID: 8379671759590681127, guid: 03e3175e1ed44a746871e4a998f919fe, type: 3}
   shootCD: 0
   canAttack: 0
   moveSpeed: 3
@@ -1812,6 +1816,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &706852308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706852301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85085da129581fb418e2febbc8e006ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showPrefabs:
+  - {fileID: 6082182665807919185, guid: 01f357547eae1484ba8b158add72f217, type: 3}
+  - {fileID: 77157430758364734, guid: 038ebdc838813d64fa2906a9ad5fe98f, type: 3}
+  - {fileID: 5761322673446159213, guid: a7ff34eb9eaa6244f9e9935dd7fd318c, type: 3}
+  - {fileID: 2580524788716549477, guid: 14d84ca46eab9ec48afb8b140d9057a5, type: 3}
+  - {fileID: 8201973270718007548, guid: c990b7f2d9e58e14b886a411f3e6ee49, type: 3}
+  - {fileID: 7821823083163107196, guid: 402d0c010e561cc4f88fb95793be0229, type: 3}
+  - {fileID: 7861899194075649840, guid: ac517baeab985b2459509db0165a002a, type: 3}
+  - {fileID: 3402197771562848329, guid: f6e245f89abeb4b47b61c1cc77b3c749, type: 3}
+  delay: 0.02
+  maxShadows: 0
+  canGen: 0
 --- !u!1 &714708847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2512,6 +2540,7 @@ RectTransform:
   - {fileID: 1067200414}
   - {fileID: 1203799261}
   - {fileID: 685676269}
+  - {fileID: 1340962406}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3165,6 +3194,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328075348}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1340962405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1340962406}
+  m_Layer: 5
+  m_Name: BossStatus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1340962406
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340962405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 514477242}
+  m_Father: {fileID: 1062420357}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 425}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1395709242
 GameObject:
   m_ObjectHideFlags: 0
@@ -3875,7 +3941,7 @@ MonoBehaviour:
   enemyWaves:
   - enemyPrefabs:
     - {fileID: 706852301}
-    needKillCount: 20
+    needKillCount: 1
     waveIndex: 1
     isBossWave: 1
   mobEnemyPrefab: {fileID: 6158568886404889875, guid: 0a4c14256e813bf4ba7fa3803c37654a, type: 3}
@@ -5215,7 +5281,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 706852304}
+    m_TransformParent: {fileID: 1340962406}
     m_Modifications:
     - target: {fileID: 3599597998250604558, guid: de2cbe25af9bd9a4a9cd4d0158852419, type: 3}
       propertyPath: fullValueColor.a
@@ -5255,11 +5321,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7839802721541866961, guid: de2cbe25af9bd9a4a9cd4d0158852419, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 7839802721541866961, guid: de2cbe25af9bd9a4a9cd4d0158852419, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7839802721541866961, guid: de2cbe25af9bd9a4a9cd4d0158852419, type: 3}
       propertyPath: m_LocalScale.z
@@ -5271,7 +5337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7839802721541866961, guid: de2cbe25af9bd9a4a9cd4d0158852419, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7839802721541866961, guid: de2cbe25af9bd9a4a9cd4d0158852419, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5308,6 +5374,10 @@ PrefabInstance:
     - target: {fileID: 7839802721541866964, guid: de2cbe25af9bd9a4a9cd4d0158852419, type: 3}
       propertyPath: m_Name
       value: HPBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839802721541866964, guid: de2cbe25af9bd9a4a9cd4d0158852419, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de2cbe25af9bd9a4a9cd4d0158852419, type: 3}
