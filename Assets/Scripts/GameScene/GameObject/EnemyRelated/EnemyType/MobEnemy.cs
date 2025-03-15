@@ -9,7 +9,6 @@ public class MobEnemy : EnemyBase
 {
     [Header("-Random Movement Settings-")]
     public Vector2 moveAreaSize;
-    public float moveSpeed;
     public float maxMoveDistance;
     public float minMoveDistance;
 

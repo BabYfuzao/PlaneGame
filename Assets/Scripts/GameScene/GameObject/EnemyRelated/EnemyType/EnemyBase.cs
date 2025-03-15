@@ -17,6 +17,8 @@ public class EnemyBase : MonoBehaviour
     [Header("-Enemy status-")]
     public int hP;
 
+    public float moveSpeed;
+
     public bool isWeak;
 
     public bool canMove;
@@ -36,6 +38,10 @@ public class EnemyBase : MonoBehaviour
         if (collision.CompareTag("PlayerBullet"))
         {
             SoundManager.instance.PlayEnemyHitSFX();
+        }
+        else if (collision.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<Player>().TakeDamage(1);
         }
     }
 

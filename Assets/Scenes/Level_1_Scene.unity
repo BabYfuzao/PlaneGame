@@ -1628,7 +1628,6 @@ GameObject:
   - component: {fileID: 706852302}
   - component: {fileID: 706852307}
   - component: {fileID: 706852306}
-  - component: {fileID: 706852305}
   - component: {fileID: 706852308}
   m_Layer: 0
   m_Name: FungiKing
@@ -1724,38 +1723,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &706852305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 706852301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60fb00b2ea4903341a9bb40f7827c4d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sr: {fileID: 706852303}
-  isMob: 0
-  isElite: 0
-  isBoss: 1
-  hP: 100
-  isWeak: 0
-  canMove: 0
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  anim: {fileID: 706852302}
-  hPBar: {fileID: 514477241}
-  shadowEffect: {fileID: 706852308}
-  startPos: {x: 6, y: 0}
-  move1Pos: {x: 6, y: 2}
-  move2Pos: {x: 6, y: -2}
-  mobEnemyPrefab: {fileID: 6158568886404889875, guid: 0a4c14256e813bf4ba7fa3803c37654a, type: 3}
-  bulletPrefab: {fileID: 8379671759590681127, guid: 03e3175e1ed44a746871e4a998f919fe, type: 3}
-  shootCD: 0
-  canAttack: 0
-  moveSpeed: 3
-  moveRange: 1
 --- !u!60 &706852306
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1825,21 +1792,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 706852301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85085da129581fb418e2febbc8e006ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 7064e56a5fa7f524bbabff63b7d25a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showPrefabs:
-  - {fileID: 6082182665807919185, guid: 01f357547eae1484ba8b158add72f217, type: 3}
-  - {fileID: 77157430758364734, guid: 038ebdc838813d64fa2906a9ad5fe98f, type: 3}
-  - {fileID: 5761322673446159213, guid: a7ff34eb9eaa6244f9e9935dd7fd318c, type: 3}
-  - {fileID: 2580524788716549477, guid: 14d84ca46eab9ec48afb8b140d9057a5, type: 3}
-  - {fileID: 8201973270718007548, guid: c990b7f2d9e58e14b886a411f3e6ee49, type: 3}
-  - {fileID: 7821823083163107196, guid: 402d0c010e561cc4f88fb95793be0229, type: 3}
-  - {fileID: 7861899194075649840, guid: ac517baeab985b2459509db0165a002a, type: 3}
-  - {fileID: 3402197771562848329, guid: f6e245f89abeb4b47b61c1cc77b3c749, type: 3}
-  delay: 0.02
-  maxShadows: 0
-  canGen: 0
+  sr: {fileID: 706852303}
+  isMob: 0
+  isElite: 0
+  isBoss: 1
+  hP: 100
+  moveSpeed: 2
+  isWeak: 0
+  canMove: 0
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  anim: {fileID: 706852302}
+  hPBar: {fileID: 514477241}
+  startPos: {x: 6, y: 0}
+  move1Pos: {x: 6, y: 3}
+  move2Pos: {x: 0, y: -3}
+  mobEnemyPrefab: {fileID: 6158568886404889875, guid: 0a4c14256e813bf4ba7fa3803c37654a, type: 3}
+  bulletPrefab: {fileID: 8379671759590681127, guid: 03e3175e1ed44a746871e4a998f919fe, type: 3}
+  canAttack: 0
 --- !u!1 &714708847
 GameObject:
   m_ObjectHideFlags: 0
@@ -3944,7 +3916,7 @@ MonoBehaviour:
     needKillCount: 1
     waveIndex: 1
     isBossWave: 1
-  mobEnemyPrefab: {fileID: 6158568886404889875, guid: 0a4c14256e813bf4ba7fa3803c37654a, type: 3}
+  mobEnemys: []
   spawnAreaSize: {x: 1, y: 9}
   spawnCD: 8
   reducedSpawnCD: 0.5

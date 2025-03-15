@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+public class EliteEnemyPrefab
+{
+    public GameObject enemyPrefab;
+    public float spawnDelay;
+}
+
+[System.Serializable]
 public class EnemyWave
 {
-    public GameObject[] enemyPrefabs;
+    public EliteEnemyPrefab[] eliteEnemys;
+
     public int needKillCount;
     public int waveIndex;
     public bool isBossWave;
@@ -98,7 +106,7 @@ public class EnemySpawner : MonoBehaviour
         mobEnemyKillCount += count;
         if (canWaveSpawn())
         {
-            EnemyWaveSpawn();
+            StartCoroutine(EnemyWaveSpawn());
         }
     }
 
@@ -106,13 +114,12 @@ public class EnemySpawner : MonoBehaviour
     {
         if (currentWave < enemyWaves.Length)
         {
-            Debug.Log("aaa");
             return mobEnemyKillCount >= enemyWaves[currentWave].needKillCount;
         }
         return false;
     }
 
-    public void EnemyWaveSpawn()
+    public IEnumerator EnemyWaveSpawn()
     {
         currentWave++;
 
@@ -121,9 +128,10 @@ public class EnemySpawner : MonoBehaviour
             isBossSpawned = true;
         }
 
-        for (int i = 0; i < enemyWaves[currentWave - 1].enemyPrefabs.Length; i++)
+        for (int i = 0; i < enemyWaves[currentWave - 1].eliteEnemys.Length; i++)
         {
-            enemyWaves[currentWave - 1].enemyPrefabs[i].SetActive(true);
+            yield return new WaitForSeconds(enemyWaves[currentWave - 1].eliteEnemys[i].spawnDelay);
+            enemyWaves[currentWave - 1].eliteEnemys[i].enemyPrefab.SetActive(true);
         }
     }
 
