@@ -64,9 +64,8 @@ public class EnemyBase : MonoBehaviour
 
             if (isMob)
             {
-                EnemySpawner.instance.MobEnemyKillCountUpdate(1);
+                EnemySpawner.instance.MobEnemyKillCountUpdate(gameObject ,1);
             }
-
             OnDeath?.Invoke(this);
             Destroy(gameObject);
         }

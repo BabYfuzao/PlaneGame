@@ -17,6 +17,9 @@ public class BossEnemy : EnemyBase
     public Vector2 move3Pos;
 
     public bool canAttack;
+    public bool isDead;
+
+    public GameObject portalPrefab;
 
     protected override void Start()
     {
@@ -97,5 +100,22 @@ public class BossEnemy : EnemyBase
         DOTween.Pause(transform);
 
         StartCoroutine(BossMove());
+    }
+
+    protected override void CheckDead()
+    {
+        if (hP <= 0 && !isDead)
+        {
+            isDead = true;
+            SoundManager.instance.PlayEnemyDeadSFX();
+            anim.SetTrigger("isDead");
+        }
+    }
+
+    public virtual void BossDeadControl()
+    {
+        GameController.instance.BossDefeat();
+        Instantiate(portalPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

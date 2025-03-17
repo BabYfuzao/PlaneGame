@@ -46,6 +46,8 @@ public class EnemySpawner : MonoBehaviour
     public int currentWave;
     public int mobEnemyKillCount;
 
+    private List<GameObject> spawnedMobEnemies = new List<GameObject>();
+
     [Header("-Spawner Status-")]
     public bool canMobSpawn = false;
     public bool isBossSpawned = false;
@@ -87,7 +89,8 @@ public class EnemySpawner : MonoBehaviour
             cumulativeChance += mob.chance;
             if (randomNum <= cumulativeChance)
             {
-                Instantiate(mob.mobEnemyPrefab, spawnPosition, Quaternion.identity);
+                GameObject enemyMob = Instantiate(mob.mobEnemyPrefab, spawnPosition, Quaternion.identity);
+                spawnedMobEnemies.Add(enemyMob);
                 break;
             }
         }
@@ -101,9 +104,10 @@ public class EnemySpawner : MonoBehaviour
         return transform.position + new Vector3(x, y, 0);
     }
 
-    public void MobEnemyKillCountUpdate(int count)
+    public void MobEnemyKillCountUpdate(GameObject enemyMob ,int count)
     {
         mobEnemyKillCount += count;
+        spawnedMobEnemies.Remove(enemyMob);
         if (canWaveSpawn())
         {
             StartCoroutine(EnemyWaveSpawn());
@@ -132,6 +136,20 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(enemyWaves[currentWave - 1].eliteEnemys[i].spawnDelay);
             enemyWaves[currentWave - 1].eliteEnemys[i].enemyPrefab.SetActive(true);
+        }
+    }
+
+    public void ClearAllEnemy()
+    {
+        canMobSpawn = false;
+        StopCoroutine(MobEnemyRoamSpawn());
+
+        foreach (GameObject enemy in spawnedMobEnemies)
+        {
+            if (enemy != null)
+            {
+                Destroy(enemy); // Destroy the enemy GameObject
+            }
         }
     }
 

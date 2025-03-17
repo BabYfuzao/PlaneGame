@@ -11,7 +11,7 @@ public class BlackHoleUltimateBullet : BlackHoleBullet
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "BulletRemover")
+        if (collision.gameObject.CompareTag("BulletRemover"))
         {
             Destroy(gameObject);
         }

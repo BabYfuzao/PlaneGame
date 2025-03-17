@@ -110,6 +110,7 @@ public class Player : MonoBehaviour
 
     public void PlayerDestroy()
     {
+        GameController.instance.GameOver();
         Destroy(gameObject);
     }
 

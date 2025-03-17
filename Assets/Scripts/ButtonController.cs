@@ -16,6 +16,12 @@ public class ButtonController : MonoBehaviour
         SceneLoader.instance.LoadLevelSelectScene();
     }
 
+    //Level Select Scene
+    public void LoadLevelSceneButton(int level)
+    {
+        SceneLoader.instance.LoadLevelScene(level);
+    }
+
     //Game Scene
     public void StartButton()
     {
@@ -24,7 +30,7 @@ public class ButtonController : MonoBehaviour
 
     public void ReStartGameButton()
     {
-        //SceneLoader.instance.LoadGameScene();
+        SceneLoader.instance.LoadLevelSelectScene();
     }
 
     public void PauseControllButton()

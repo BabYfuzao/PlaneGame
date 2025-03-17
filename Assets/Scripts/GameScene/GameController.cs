@@ -29,6 +29,8 @@ public class GameController : MonoBehaviour
     [Header("-UI Text-")]
     public TextMeshProUGUI timerText;
 
+    //[Header("-Other-")]
+
     private void Awake()
     {
         instance = this;
@@ -43,9 +45,10 @@ public class GameController : MonoBehaviour
 
     public void GameStart()
     {
-        Time.timeScale = 1;
         gameStartPanel.SetActive(false);
         isGameInProgress = true;
+
+        Time.timeScale = 1;
 
         StartCoroutine(TimerUpdate());
 
@@ -91,8 +94,20 @@ public class GameController : MonoBehaviour
         SoundManager.instance.PlayGameBGM(isGameInProgress);
     }
 
+    public void BossDefeat()
+    {
+        EnemySpawner.instance.ClearAllEnemy();
+        BackgroundController.instance.BGStop();
+    }
+
     public void GameOver()
     {
+        StartCoroutine(GameOverDisplay());
+    }
+
+    public IEnumerator GameOverDisplay()
+    {
+        yield return new WaitForSeconds(0.5f);
         isGameOver = true;
         gameOverPanel.SetActive(isGameOver);
         Time.timeScale = 0;
