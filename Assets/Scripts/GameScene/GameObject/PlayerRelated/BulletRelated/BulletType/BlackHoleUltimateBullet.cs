@@ -19,8 +19,7 @@ public class BlackHoleUltimateBullet : BlackHoleBullet
         if (collision.gameObject.CompareTag("Enemy"))
         {
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
-
-            
+            weapon.BlackHoleInstantiate(collision.gameObject.transform.position);
         }
     }
 }

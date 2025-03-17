@@ -144,12 +144,20 @@ public class EnemySpawner : MonoBehaviour
         canMobSpawn = false;
         StopCoroutine(MobEnemyRoamSpawn());
 
+        foreach (var wave in enemyWaves)
+        {
+            foreach (var elite in wave.eliteEnemys)
+            {
+                if (!elite.enemyPrefab.GetComponent<EliteEnemy>().isBoss)
+                {
+                    elite.enemyPrefab.SetActive(false);
+                }
+            }
+        }
+
         foreach (GameObject enemy in spawnedMobEnemies)
         {
-            if (enemy != null)
-            {
-                Destroy(enemy); // Destroy the enemy GameObject
-            }
+            Destroy(enemy);
         }
     }
 

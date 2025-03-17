@@ -363,11 +363,11 @@ GameObject:
   - component: {fileID: 173401171}
   m_Layer: 0
   m_Name: BigBird_elite_1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &173401170
 Transform:
   m_ObjectHideFlags: 0
@@ -579,7 +579,7 @@ GameObject:
   - component: {fileID: 176258945}
   - component: {fileID: 176258944}
   m_Layer: 0
-  m_Name: Layer_1 (3)
+  m_Name: Layer_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1045,11 +1045,11 @@ GameObject:
   - component: {fileID: 405142413}
   m_Layer: 0
   m_Name: BigBird_elite_2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &405142412
 Transform:
   m_ObjectHideFlags: 0
@@ -1659,6 +1659,7 @@ Transform:
   - {fileID: 1514219842}
   - {fileID: 945065009}
   - {fileID: 176258943}
+  - {fileID: 1029280768}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2059,11 +2060,11 @@ GameObject:
   - component: {fileID: 844128458}
   m_Layer: 0
   m_Name: BigBird_elite_2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &844128457
 Transform:
   m_ObjectHideFlags: 0
@@ -2425,7 +2426,7 @@ GameObject:
   - component: {fileID: 945065011}
   - component: {fileID: 945065010}
   m_Layer: 0
-  m_Name: Layer_1 (2)
+  m_Name: Layer_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2645,6 +2646,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003188836}
   m_CullTransparentMesh: 1
+--- !u!1 &1029280767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1029280768}
+  - component: {fileID: 1029280769}
+  m_Layer: 0
+  m_Name: BackgroundController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1029280768
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029280767}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 687850348}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1029280769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029280767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb0618e522ba09418fb8050640144ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgs:
+  - {fileID: 1514219843}
+  - {fileID: 945065010}
+  - {fileID: 176258944}
 --- !u!1 &1058004925
 GameObject:
   m_ObjectHideFlags: 0
@@ -3084,7 +3133,7 @@ GameObject:
   - component: {fileID: 1160607092}
   m_Layer: 0
   m_Name: Eagle
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3105,7 +3154,7 @@ MonoBehaviour:
   isMob: 0
   isElite: 0
   isBoss: 1
-  hP: 100
+  hP: 10
   moveSpeed: 6
   isWeak: 0
   canMove: 0
@@ -3116,6 +3165,8 @@ MonoBehaviour:
   move2Pos: {x: 6, y: 0}
   move3Pos: {x: 4, y: 4}
   canAttack: 0
+  isDead: 0
+  portalPrefab: {fileID: 3630516277421448141, guid: 93473ce23068a9f4a8bc5db3cae266e8, type: 3}
   shadowEffect: {fileID: 1160607086}
   playerTransform: {fileID: 344970852}
 --- !u!114 &1160607086
@@ -3130,15 +3181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85085da129581fb418e2febbc8e006ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showPrefabs:
-  - {fileID: 4872846384491474801, guid: 0ef8e6c0ac428d14aa81131291a986a5, type: 3}
-  - {fileID: 7077395973100325447, guid: 509123a4eaa9a6b4d9d1a80a9e95c567, type: 3}
-  - {fileID: 7306110856482625822, guid: ff9bed0b173015046b056ad56afcb608, type: 3}
-  - {fileID: 1111406775665117872, guid: 0d4d1850534af74459f75ba2c6f9cc20, type: 3}
-  - {fileID: 8288558993353703275, guid: 4fccc7dc20ba686459a318ba295c3f57, type: 3}
-  - {fileID: 4136027007006038308, guid: 6ff0705a25f0bfb40b0f0bcf175b8a39, type: 3}
+  shadowPrefab: {fileID: 9048534138686511166, guid: 92afff7559f085e4e8ec7ac52db291fc, type: 3}
   delay: 0.02
-  maxShadows: 0
+  maxShadows: 6
   canGen: 0
 --- !u!60 &1160607087
 PolygonCollider2D:
@@ -4084,7 +4129,7 @@ GameObject:
   - component: {fileID: 1514219844}
   - component: {fileID: 1514219843}
   m_Layer: 0
-  m_Name: Layer_1 (1)
+  m_Name: Layer_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4513,11 +4558,11 @@ GameObject:
   - component: {fileID: 1764098097}
   m_Layer: 0
   m_Name: BigBird_elite_1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1764098096
 Transform:
   m_ObjectHideFlags: 0

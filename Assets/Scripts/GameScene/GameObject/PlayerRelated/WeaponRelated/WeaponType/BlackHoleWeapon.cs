@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BlackHoleWeapon : WeaponBase
 {
+    public GameObject bhUltBullet;
     public GameObject blackHolePrefab;
     public float blackHoleDurationTime;
 
@@ -30,12 +31,14 @@ public class BlackHoleWeapon : WeaponBase
 
     public override void Ultimate()
     {
-            BlackHoleInstantiate();
+        GameObject bulletObj = Instantiate(bhUltBullet, transform.position, Quaternion.identity);
+        BlackHoleBullet bullet = bulletObj.GetComponent<BlackHoleBullet>();
+        bullet.Initialize(this);
     }
 
-    public void BlackHoleInstantiate()
+    public void BlackHoleInstantiate(Vector2 enemyPos)
     {
-        GameObject blackHoleObj = Instantiate(blackHolePrefab, transform.position, Quaternion.identity);
+        GameObject blackHoleObj = Instantiate(blackHolePrefab, enemyPos, Quaternion.identity);
         BlackHole bh = blackHoleObj.GetComponent<BlackHole>();
 
         bh.BlackHoleDuration(blackHoleDurationTime);

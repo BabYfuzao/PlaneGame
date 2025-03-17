@@ -6,6 +6,8 @@ public class DigitalWeapon : WeaponBase
 {
     public GameObject hitCountPrefab;
 
+    public GameObject explosionPrefab;
+
     protected override void Start()
     {
         base.Start();
@@ -22,6 +24,16 @@ public class DigitalWeapon : WeaponBase
             canShoot = false;
             yield return new WaitForSeconds(shootCD);
             canShoot = true;
+        }
+    }
+
+    public override void Ultimate()
+    {
+        Transform parentTransform = hitCountPrefab.transform.parent;
+
+        if (parentTransform != null)
+        {
+            Instantiate(explosionPrefab, parentTransform.position, Quaternion.identity);
         }
     }
 }

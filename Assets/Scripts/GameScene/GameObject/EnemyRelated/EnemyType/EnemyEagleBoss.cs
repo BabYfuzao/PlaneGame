@@ -91,10 +91,10 @@ public class EnemyEagleBoss : BossEnemy
         yield return transform.DOMove(new Vector2(-12, transform.position.y), 0.5f).SetEase(Ease.OutCubic).WaitForCompletion();
         shadowEffect.StopShadowEffect();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         transform.localScale = new Vector3(-1, 1, 1);
         shadowEffect.StartShadowEffect(-1);
-        yield return transform.DOMove(new Vector2(6, transform.position.y), 0.5f).SetEase(Ease.OutCubic).WaitForCompletion();
+        yield return transform.DOMove(new Vector2(6, transform.position.y), 0.8f).SetEase(Ease.OutCubic).WaitForCompletion();
         shadowEffect.StopShadowEffect();
 
         anim.SetBool("isAttack", false);
@@ -128,5 +128,22 @@ public class EnemyEagleBoss : BossEnemy
     {
         LineRenderer lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
+    }
+
+    public override void BossDeadControl()
+    {
+        Vector2 portalPos = transform.position;
+
+        DOTween.Pause(transform);
+        StopCoroutine(RandomAction());
+        GameController.instance.BossDefeat();
+        StartCoroutine(BossDead(portalPos));
+    }
+
+    public IEnumerator BossDead(Vector2 portalPos)
+    {
+        yield return new WaitForSeconds(1f);
+        yield return transform.DOMoveY(-10, 2f).SetEase(Ease.OutCubic).WaitForCompletion();
+        Instantiate(portalPrefab, portalPos, Quaternion.identity);
     }
 }

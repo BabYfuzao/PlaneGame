@@ -17,7 +17,21 @@ public class BackgroundController : MonoBehaviour
     {
         foreach (var bg in bgs)
         {
-            bg.canMove = false;
+            StartCoroutine(BGSpeedReduce(bg));
+        }
+    }
+
+    public IEnumerator BGSpeedReduce(BGScrolling bg)
+    {
+        while (bg.speed > 0f)
+        {
+            bg.speed -= Time.deltaTime * 0.1f;
+            if (bg.speed <= 0f)
+            {
+                bg.speed = 0f;
+                bg.canMove = false;
+            }
+            yield return null;
         }
     }
 }

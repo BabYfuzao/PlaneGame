@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ShadowEffect : MonoBehaviour
 {
-    public List<GameObject> showPrefabs;
+    public GameObject shadowPrefab;
     public float delay;
     public int maxShadows;
 
-    private int currentShadowIndex = 0;
     public Queue<GameObject> shadowQueue = new Queue<GameObject>();
     public bool canGen = true;
 
@@ -22,18 +21,19 @@ public class ShadowEffect : MonoBehaviour
     {
         while (canGen)
         {
-            GameObject showObj = Instantiate(showPrefabs[currentShadowIndex], transform.position, Quaternion.identity);
-            showObj.transform.localScale = new Vector3(angel, 1, 1);
+            GameObject shadowObj = Instantiate(shadowPrefab, transform.position, Quaternion.identity);
+            SpriteRenderer shadowSR = shadowObj.GetComponent<SpriteRenderer>();
+            shadowSR.sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
 
-            shadowQueue.Enqueue(showObj);
+            shadowObj.transform.localScale = new Vector3(angel, 1, 1);
+
+            shadowQueue.Enqueue(shadowObj);
 
             if (shadowQueue.Count > maxShadows)
             {
                 GameObject oldestShadow = shadowQueue.Dequeue();
                 Destroy(oldestShadow);
             }
-
-            currentShadowIndex = (currentShadowIndex + 1) % showPrefabs.Count;
 
             yield return new WaitForSeconds(delay);
         }

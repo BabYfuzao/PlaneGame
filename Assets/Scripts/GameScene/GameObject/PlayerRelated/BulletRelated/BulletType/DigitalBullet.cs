@@ -8,8 +8,6 @@ public class DigitalBullet : PlayerBulletBase
     [HideInInspector]
     public DigitalWeapon weapon;
 
-    public GameObject explosionPrefab;
-
     protected override void Start()
     {
         base.Start();
@@ -63,7 +61,7 @@ public class DigitalBullet : PlayerBulletBase
     {
         if (hitCount.hitCount >= 8)
         {
-            GameObject explosionObj = Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
+            GameObject explosionObj = Instantiate(weapon.explosionPrefab, enemy.transform.position, Quaternion.identity);
             Explosion explosion = explosionObj.GetComponent<Explosion>();
             explosion.Initialize(this);
             explosionObj.GetComponent<Explosion>().StartExplosion();

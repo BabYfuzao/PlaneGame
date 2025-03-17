@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponBase : MonoBehaviour
+public abstract class WeaponBase : MonoBehaviour
 {
     [Header("-Object-")]
     public SmoothBar energyBar;
@@ -36,8 +36,5 @@ public class WeaponBase : MonoBehaviour
         }
     }
 
-    public virtual void Ultimate()
-    {
-
-    }
+    public abstract void Ultimate();
 }

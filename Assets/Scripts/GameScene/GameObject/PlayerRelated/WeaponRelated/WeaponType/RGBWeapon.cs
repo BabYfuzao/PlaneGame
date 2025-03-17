@@ -24,4 +24,8 @@ public class RGBWeapon : WeaponBase
             canShoot = true;
         }
     }
+
+    public override void Ultimate()
+    {
+    }
 }
