@@ -19,7 +19,6 @@ public class EnemyFungiKingBoss : BossEnemy
         anim.SetBool("isAttack", true);
         yield return MoveToPosition(move1Pos);
         anim.SetBool("isAttack", false);
-        yield return new WaitForSeconds(2f);
 
         StartCoroutine(BossMove());
     }
@@ -50,7 +49,7 @@ public class EnemyFungiKingBoss : BossEnemy
 
     public override IEnumerator RandomAction()
     {
-        float randomTime = Random.Range(5f, 10f);
+        float randomTime = Random.Range(4f, 6f);
         float randomChance = Random.Range(0f, 10f);
 
         yield return new WaitForSeconds(randomTime);
@@ -72,13 +71,18 @@ public class EnemyFungiKingBoss : BossEnemy
 
     public IEnumerator BulletShoot()
     {
-        yield return new WaitForSeconds(1f);
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        yield return sr.DOColor(Color.green, 1f).SetEase(Ease.OutCubic).WaitForCompletion();
+        GameObject bulletObj = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+        bulletObj.transform.localScale = Vector3.zero;
+        yield return bulletObj.transform.DOScale(Vector3.one, 2f).SetEase(Ease.OutBack).WaitForCompletion();
+        bulletObj.GetComponent<ToxicFog>().ScaleChange();
+        yield return sr.DOColor(defaultColor, 1f).SetEase(Ease.OutCubic).WaitForCompletion();
     }
 
     public IEnumerator MobSpawn()
     {
-        yield return sr.DOColor(Color.green, 1f).SetEase(Ease.OutCubic).WaitForCompletion();
+        yield return sr.DOColor(Color.yellow, 1f).SetEase(Ease.OutCubic).WaitForCompletion();
 
         Vector2[] offsets = {
             new Vector2(0, 3),

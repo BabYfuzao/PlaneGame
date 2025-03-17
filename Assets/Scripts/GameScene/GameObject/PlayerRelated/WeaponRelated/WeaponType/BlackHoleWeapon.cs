@@ -34,6 +34,7 @@ public class BlackHoleWeapon : WeaponBase
         GameObject bulletObj = Instantiate(bhUltBullet, transform.position, Quaternion.identity);
         BlackHoleBullet bullet = bulletObj.GetComponent<BlackHoleBullet>();
         bullet.Initialize(this);
+        EnergyManager.instance.ResetEnergy();
     }
 
     public void BlackHoleInstantiate(Vector2 enemyPos)

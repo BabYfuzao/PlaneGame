@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019500dea5a541f40b641adf361adb75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyBar: {fileID: 0}
   bulletPrefab: {fileID: 6633309600070252380, guid: a3e81fdf1681d074d94bef448f7e76b4, type: 3}
-  energyMax: 20
+  energyMax: 10
   shootCD: 0.2
-  weaponID: 4
+  weaponID: 2
   hitCountPrefab: {fileID: 1766822277561707599, guid: c9353508bd4a4ce4082d7332146c6c10, type: 3}
+  explosionPrefab: {fileID: 5555698192914516244, guid: 2a65b77f9d511f14cae6578581cb9b01, type: 3}

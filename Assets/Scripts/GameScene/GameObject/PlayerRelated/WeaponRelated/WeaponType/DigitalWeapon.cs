@@ -8,6 +8,8 @@ public class DigitalWeapon : WeaponBase
 
     public GameObject explosionPrefab;
 
+    private List<GameObject> hitEnemies = new List<GameObject>();
+
     protected override void Start()
     {
         base.Start();
@@ -29,11 +31,26 @@ public class DigitalWeapon : WeaponBase
 
     public override void Ultimate()
     {
-        Transform parentTransform = hitCountPrefab.transform.parent;
+        hitEnemies.RemoveAll(enemy => enemy == null);
 
-        if (parentTransform != null)
+        if (hitEnemies.Count > 0)
         {
-            Instantiate(explosionPrefab, parentTransform.position, Quaternion.identity);
+            foreach (GameObject enemy in hitEnemies)
+            {
+                GameObject explosionObj = Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
+                Explosion explosion = explosionObj.GetComponent<Explosion>();
+                explosionObj.GetComponent<Explosion>().StartExplosion();
+            }
+            hitEnemies.Clear();
+        }
+        EnergyManager.instance.ResetEnergy();
+    }
+
+    public void RecordHitEnemy(GameObject enemy)
+    {
+        if (!hitEnemies.Contains(enemy))
+        {
+            hitEnemies.Add(enemy);
         }
     }
 }

@@ -133,7 +133,7 @@ MonoBehaviour:
   maxMoveDistance: 4
   minMoveDistance: 2
   anim: {fileID: 4112706786873652680}
-  bulletPrefab: {fileID: 4677261723051217904, guid: 14b8839a43f27aa43b7b4fa4052ca2cd, type: 3}
+  bulletPrefab: {fileID: 4223600675487542542, guid: 5e3cae43b186b324b81e8ac1a4b058e9, type: 3}
   canFire: 1
   fireCD: 5
 --- !u!58 &4112706786873652684

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyNormalBullet : EnemyBulletBase
 {
-    void Start()
+    protected virtual void Start()
     {
         Vector2 direction = Vector2.left;
         rb.velocity = direction * moveSpeed;

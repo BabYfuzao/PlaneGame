@@ -10,6 +10,7 @@ public class SceneLoader : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        Time.timeScale = 1;
     }
 
     public void LoadTitleScene()

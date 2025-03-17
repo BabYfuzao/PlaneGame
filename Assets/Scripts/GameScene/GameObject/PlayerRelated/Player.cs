@@ -74,7 +74,6 @@ public class Player : MonoBehaviour
             if (EnergyManager.instance.canUlt)
             {
                 weapon.Ultimate();
-                EnergyManager.instance.ResetEnergy();
             }
         }
     }

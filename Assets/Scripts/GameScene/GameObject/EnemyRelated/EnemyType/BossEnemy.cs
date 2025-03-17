@@ -115,7 +115,16 @@ public class BossEnemy : EnemyBase
     public virtual void BossDeadControl()
     {
         GameController.instance.BossDefeat();
-        Instantiate(portalPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+
+        GameObject portalObj = Instantiate(portalPrefab, transform.position, Quaternion.identity);
+
+        Transform portalTransform = portalObj.transform;
+
+        portalTransform.localScale = Vector3.zero;
+
+        portalTransform.DOScale(Vector3.one, 1f).OnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
     }
 }

@@ -130,6 +130,7 @@ public class EnemySpawner : MonoBehaviour
         if (enemyWaves[currentWave - 1].isBossWave && !isBossSpawned)
         {
             isBossSpawned = true;
+            SoundManager.instance.PlayBGM(isBossSpawned);
         }
 
         for (int i = 0; i < enemyWaves[currentWave - 1].eliteEnemys.Length; i++)

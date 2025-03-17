@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class WeaponBase : MonoBehaviour
+public class WeaponBase : MonoBehaviour
 {
     [Header("-Object-")]
-    public SmoothBar energyBar;
-
     public GameObject bulletPrefab;
 
     [Header("-Data-")]
@@ -36,5 +34,8 @@ public abstract class WeaponBase : MonoBehaviour
         }
     }
 
-    public abstract void Ultimate();
+    public virtual void Ultimate()
+    {
+
+    }
 }

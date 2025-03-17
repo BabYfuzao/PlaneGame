@@ -10,6 +10,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource sfxAudioSource;
 
     public AudioClip gameBGM;
+    public AudioClip bossBGM;
+    public AudioClip gameOverBGM;
 
     public AudioClip bhBulletShootSFX;
     public AudioClip bhSFX;
@@ -25,16 +27,21 @@ public class SoundManager : MonoBehaviour
         instance = this;
     }
 
-    public void PlayGameBGM(bool isPlayGameBGM)
+    public void PlayBGM(bool isPlayBGM)
     {
-        if (bgmAudioSource.clip != gameBGM)
+        if (!EnemySpawner.instance.isBossSpawned)
         {
             bgmAudioSource.clip = gameBGM;
-            bgmAudioSource.loop = true;
-            bgmAudioSource.Play();
         }
+        else
+        {
+            bgmAudioSource.clip = bossBGM;
+        }
+        bgmAudioSource.volume = 1f;
+        bgmAudioSource.loop = true;
+        bgmAudioSource.Play();
 
-        if (isPlayGameBGM)
+        if (isPlayBGM)
         {
             if (!bgmAudioSource.isPlaying)
             {
@@ -48,6 +55,13 @@ public class SoundManager : MonoBehaviour
                 bgmAudioSource.Pause();
             }
         }
+    }
+
+    public void PlayGameOver()
+    {
+        bgmAudioSource.volume = 0.3f;
+        bgmAudioSource.clip = gameOverBGM;
+        bgmAudioSource.Play();
     }
 
     public void PlayBHBulletShootSFX()

@@ -30,6 +30,8 @@ public class DigitalBullet : PlayerBulletBase
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
             enemy.TakeDamage(atk);
 
+            weapon.RecordHitEnemy(collision.gameObject);
+
             HitCount hitCount = collision.GetComponentInChildren<HitCount>();
 
             if (hitCount == null)

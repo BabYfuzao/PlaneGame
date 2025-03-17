@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class GameController : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class GameController : MonoBehaviour
 
         EnemySpawner.instance.canMobSpawn = true;
         EnemySpawner.instance.SpawnStart();
-        SoundManager.instance.PlayGameBGM(isGameInProgress);
+        SoundManager.instance.PlayBGM(isGameInProgress);
     }
 
     public void TextHandleUpdate()
@@ -91,7 +92,7 @@ public class GameController : MonoBehaviour
         pausePanel.SetActive(isGamePause);
         pauseButton.SetActive(isGameInProgress);
 
-        SoundManager.instance.PlayGameBGM(isGameInProgress);
+        SoundManager.instance.PlayBGM(isGameInProgress);
     }
 
     public void BossDefeat()
@@ -110,6 +111,14 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         isGameOver = true;
         gameOverPanel.SetActive(isGameOver);
-        Time.timeScale = 0;
+
+        CanvasGroup canvasGroup = gameOverPanel.GetComponent<CanvasGroup>();
+
+        canvasGroup.alpha = 0;
+        SoundManager.instance.PlayGameOver();
+        canvasGroup.DOFade(1f, 1f).OnComplete(() =>
+        {
+            Time.timeScale = 0;
+        });
     }
 }

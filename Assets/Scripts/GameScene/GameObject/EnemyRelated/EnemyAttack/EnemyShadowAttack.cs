@@ -11,8 +11,8 @@ public class EnemyShadowAttack : MonoBehaviour
     public float warningDuration = 0.5f;
     private float blinkInterval = 0.1f;
 
-    private float xLimit = 10f;
-    private float yLimit = 6f;
+    public float xLimit = 10f;
+    public float yLimit = 6f;
 
     public int attackIndex;
 
