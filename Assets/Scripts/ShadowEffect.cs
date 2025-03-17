@@ -9,13 +9,8 @@ public class ShadowEffect : MonoBehaviour
     public int maxShadows;
 
     private int currentShadowIndex = 0;
-    private Queue<GameObject> shadowQueue = new Queue<GameObject>();
+    public Queue<GameObject> shadowQueue = new Queue<GameObject>();
     public bool canGen = true;
-
-    private void Start()
-    {
-        maxShadows = showPrefabs.Count;
-    }
 
     public void StartShadowEffect(float angel)
     {

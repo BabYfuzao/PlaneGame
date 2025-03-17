@@ -20,7 +20,7 @@ public class EliteEnemy : EnemyBase
         StartCoroutine(EliteAppear());
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (canShoot)
         {
@@ -28,14 +28,14 @@ public class EliteEnemy : EnemyBase
         }
     }
 
-    public IEnumerator EliteAppear()
+    public virtual IEnumerator EliteAppear()
     {
         yield return MoveToPosition(move1Pos);
 
-        StartCoroutine(BossMove());
+        StartCoroutine(Move());
     }
 
-    public IEnumerator BossMove()
+    public virtual IEnumerator Move()
     {
         canMove = true;
 
@@ -48,7 +48,7 @@ public class EliteEnemy : EnemyBase
         }
     }
 
-    private IEnumerator MoveToPosition(Vector3 targetPosition)
+    protected IEnumerator MoveToPosition(Vector3 targetPosition)
     {
         float distance = Vector3.Distance(transform.position, targetPosition);
         float duration = distance / moveSpeed;
@@ -56,7 +56,7 @@ public class EliteEnemy : EnemyBase
         yield return transform.DOMove(targetPosition, duration).SetEase(Ease.Linear).WaitForCompletion();
     }
 
-    public IEnumerator BulletFire()
+    public virtual IEnumerator BulletFire()
     {
         canShoot = false;
         yield return new WaitForSeconds(fireCD);

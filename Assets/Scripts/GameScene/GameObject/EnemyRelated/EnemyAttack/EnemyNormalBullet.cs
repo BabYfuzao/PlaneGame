@@ -2,24 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBullet : MonoBehaviour
+public class EnemyNormalBullet : EnemyBulletBase
 {
-    public Rigidbody2D rb;
-
-    public int atk;
-    public float moveSpeed;
-
-    public GameObject playerHitVFXPrefab;
-
-    protected virtual void Start()
+    void Start()
     {
         Vector2 direction = Vector2.left;
         rb.velocity = direction * moveSpeed;
     }
 
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "EnemyRemover")
+        if (collision.gameObject.CompareTag("EnemyRemover"))
         {
             Destroy(gameObject);
         }
